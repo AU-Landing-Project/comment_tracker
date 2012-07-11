@@ -1,0 +1,7 @@
+== Version History ==
+
+x.x:
+
+1.1 ():
+
+ - Changed the style of the subscribe/unsubscribe buttons to be in line with theme

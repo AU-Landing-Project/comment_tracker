@@ -73,6 +73,9 @@ END;
 				<td>&nbsp;</td>
 			</tr>
 		</table>
-		<input type="submit" value="<?php echo elgg_echo('save'); ?>" />
+    <br><br>
+    <?php
+    echo elgg_view('input/submit', array('value' => elgg_echo('save')));
+    ?>
 	</div>
 </div>
