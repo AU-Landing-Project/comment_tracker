@@ -2,6 +2,6 @@
 
 x.x:
 
-1.1 ():
-
+1.1 (08/30/2012):
+ - fixed markup of subscribe/unsubscribe buttons on discussion page (IE/Opera had issues)
  - Changed the style of the subscribe/unsubscribe buttons to be in line with theme
