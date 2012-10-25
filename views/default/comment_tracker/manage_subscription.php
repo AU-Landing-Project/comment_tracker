@@ -9,6 +9,10 @@
  * @author Akhilesh @ Cubet Technologies
  */
 $entity = $vars['entity'];
+
+if (elgg_instanceof($entity, 'object', 'groupforumtopic') && $entity->status == 'closed') {
+  return;
+}
 ?>
 <div class="comment_trackerWrapper">
 	<?php if(check_entity_relationship(elgg_get_logged_in_user_guid(), 'comment_subscribe', $entity->guid)){?>

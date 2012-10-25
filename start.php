@@ -32,7 +32,7 @@ function comment_tracker_init() {
 	
 	if(elgg_is_logged_in()){
 	  elgg_extend_view('page/elements/comments', "comment_tracker/manage_subscription", 400);
-	  elgg_extend_view('forms/discussion/reply/save', "comment_tracker/manage_subscription", 400);
+	  elgg_extend_view('discussion/replies', "comment_tracker/manage_subscription", 400);
 	}
 	
 	// Register a page handler, so we can have nice URLs
