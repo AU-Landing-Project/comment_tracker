@@ -13,7 +13,7 @@
 gatekeeper();
 global $CONFIG;
 
-if(!elgg_is_active_plugin('notifications') || $CONFIG->allow_commnet_notification != 'yes')
+if(!elgg_is_active_plugin('notifications') || $CONFIG->allow_comment_notification != 'yes')
 {
 	forward();
 }

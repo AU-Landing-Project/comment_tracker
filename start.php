@@ -16,16 +16,17 @@ function comment_tracker_init() {
 	global $CONFIG;
 	
 	$plugin_settings = elgg_get_plugin_from_id('comment_tracker');
-	$CONFIG->allow_commnet_notification = 'yes';
-	$CONFIG->email_content_type = 'text';
-	if(isset($plugin_settings->allow_commnet_notification))
-	{
-		$CONFIG->allow_commnet_notification = $plugin_settings->allow_commnet_notification;
+  elgg_set_config('allow_comment_notification', 'yes');
+	elgg_set_config('email_content_type', 'text');
+	
+	if (isset($plugin_settings->allow_comment_notification)) {
+		elgg_set_config('allow_comment_notification', $plugin_settings->allow_comment_notification);
 	}
-	if(isset($plugin_settings->email_content_type))
-	{
-		$CONFIG->email_content_type = $plugin_settings->email_content_type;
+  
+	if (isset($plugin_settings->email_content_type)) {
+		elgg_set_config('email_content_type', $plugin_settings->email_content_type);
 	}
+  
 	// Extend views
 	elgg_extend_view('css/elgg', 'comment_tracker/css');
 	
@@ -35,15 +36,21 @@ function comment_tracker_init() {
 	}
 	
 	// Register a page handler, so we can have nice URLs
-	elgg_register_page_handler('ctracker','comment_tracker_page_handler');
-
-	// Unregister anotate event handler for block group object notification
-	elgg_unregister_event_handler('annotate','all','group_object_notifications');
+	//elgg_register_page_handler('ctracker','comment_tracker_page_handler');
 	
 	// Register actions
 	elgg_register_action("comment_tracker/unsubscribe", elgg_get_plugins_path() . "comment_tracker/actions/unsubscribe.php", 'public');
 	elgg_register_action("comment_tracker/subscribe", elgg_get_plugins_path() . "comment_tracker/actions/subscribe.php", 'public');
 	elgg_register_action("comment_tracker/savesettings", elgg_get_plugins_path() . "comment_tracker/actions/settings.php");
+  
+  // fix typo in settings (from 1.7 version)
+  run_function_once('comment_tracker_update_20121025a');
+}
+
+
+function comment_tracker_update_20121025a() {
+  $plugin_settings = elgg_get_plugin_from_id('comment_tracker');
+  $plugin_settings->allow_comment_notification = $plugin_settings->allow_commnet_notification;
 }
 
 function comment_tracker_subscribe($user_guid, $entity_guid) {
@@ -204,7 +211,7 @@ function notify_comment_tracker($anotation, $ann_user, $params = NULL) {
 function comment_tracker_pagesetup() {
 	global $CONFIG;
   
-	if (elgg_get_context() == 'settings' && elgg_is_logged_in() && elgg_is_active_plugin('notifications') && $CONFIG->allow_commnet_notification == 'yes')
+	if (elgg_get_context() == 'settings' && elgg_is_logged_in() && elgg_is_active_plugin('notifications') && $CONFIG->allow_comment_notification == 'yes')
 	{	
 		$item = new ElggMenuItem('ctracker_settings', elgg_echo('comment:notification:settings'), elgg_get_site_url() . "ctracker/settings");
 	    elgg_register_menu_item('page', $item);

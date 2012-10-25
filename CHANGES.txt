@@ -2,6 +2,10 @@
 
 x.x:
 
+1.2():
+ - removed unregistration of non-existent event handler causing php warnings due to empty foreach
+ - moved comment notification settings to notifications page
+
 1.1 ():
 
  - Changed the style of the subscribe/unsubscribe buttons to be in line with theme
