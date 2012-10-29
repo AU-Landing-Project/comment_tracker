@@ -2,7 +2,7 @@
 
 x.x:
 
-1.2():
+1.2(10/29/2012):
  - removed unregistration of non-existent event handler causing php warnings due to empty foreach
  - moved comment notification settings to notifications page
  - fixed annoying typo in main variable
