@@ -7,27 +7,33 @@
  * @copyright Copyright (c) 2007-2011 Cubet Technologies. (http://cubettechnologies.com)
  * @version  1.0
  * @author Akhilesh @ Cubet Technologies
+ * 
+ * updated/improved by Matt Beckett
  */
+$subscribe = get_input('subscribe', true);
+$entity_guid = get_input('guid');
+$user_guid = get_input('user');
 
-$user = elgg_get_logged_in_user_entity();
-$entity_guid = get_input('entity_guid');
+$user = get_user($user_guid);
 $entity = get_entity($entity_guid);
 
-if(!empty($entity_guid) && $entity)
-{
-	if(comment_tracker_subscribe($user->guid, $entity_guid))
-	{
-		system_message(elgg_echo('comment:subscribe:success'));
-	}
-	else
-	{
-		register_error(elgg_echo('comment:subscribe:failed'));
-	}
-	$redirect = $entity->getUrl();
+if (!$user || !$user->canEdit()) {
+  register_error(elgg_echo('comment:subscribe:failed'));
+  return;
 }
-else
-{
+
+if (!empty($entity_guid) && $entity) {
+  if ($subscribe) {
+    if (!comment_tracker_subscribe($user->guid, $entity_guid)) {
+      register_error(elgg_echo('comment:subscribe:failed'));
+    }
+  }
+  else {
+    if (!comment_tracker_unsubscribe($user->guid, $entity_guid)) {
+      register_error(elgg_echo('comment:unsubscribe:failed'));
+    }
+  }
+}
+else {
 	register_error(elgg_echo('comment:subscribe:entity:not:access'));
-	$redirect = '';
 }
-forward($redirect);

@@ -14,5 +14,10 @@
 		<version>1.8</version>
 	</requires>
   
+  <requires>
+    <type>plugin</type>
+    <name>notifications</name>
+  </requires>
+  
 	<category>Notifications</category>
 </plugin_manifest>

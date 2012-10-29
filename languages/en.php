@@ -12,8 +12,11 @@
 	$english = array(
 		'comments' => "Comments",
 		'comment:notification:settings' => 'Comment notifications',
-		'comment:notification:settings:description' => 'To receive notifications when a user added new comments to an entity, find it below and select the notification method you would like to use.',
-		'comment:notification:settings:success' => 'Your notifications settings have been saved.',
+		'comment:notification:settings:description' => 'Notify when comments are posted to items you have subscribed to.',
+		'comment:notification:settings:how' => 'Select your method of notification',
+    'comment:notification:settings:linktext' => 'View all items to which you are subscribed',
+    'comment:subscriptions' => 'Subscriptions',
+    'comment:subscriptions:none' => 'No current subscriptions',
 		'allow:comment:notification' => 'Do you want to enable notification? ',
 		'email:content:type' => 'Do you want to support HTML Email? ',
 		'text:email' => 'No',
@@ -38,7 +41,6 @@
 <font color="#888888" size="2">
 You have received this notification because you have subscribed to it, or are involved in it.<br/>
 To change your notification preferences, please click here: %s<br/>
-Or unsubscribe from this particular post or topic, please click here: %s
 </font>
 		',
 	  	'comment:notify:group:body:web' => 'Hi %s,
@@ -49,7 +51,6 @@ Or unsubscribe from this particular post or topic, please click here: %s
 <font color="#888888" size="2">
 You have received this notification because you have subscribed to it, or are involved in it.<br/>
 To change your notification preferences, please click here: %s<br/>
-Or unsubscribe from this particular post or topic, please click here: %s
 </font>
 		',
 		'comment:notify:body:email:text' => 'Hi %s,
@@ -70,8 +71,6 @@ Please note you may have to login before viewing the post or topic.
 You have received this notification because you have subscribed to it, or are involved in it.
 
 To change your notification preferences for all such messages, please click here: %s
-
-Or unsubscribe from this particular post or topic, please click here: %s
 </font>
 		',
 	  	'comment:notify:group:body:email:text' => 'Hi %s,
@@ -92,8 +91,6 @@ Please note you may have to login before viewing the post or topic.
 You have received this notification because you have subscribed to it, or are involved in it.
 
 To change your notification preferences for all such messages, please click here: %s
-
-Or unsubscribe from this particular post or topic, please click here: %s
 </font>
 		',
 	
@@ -111,7 +108,6 @@ Or unsubscribe from this particular post or topic, please click here: %s
 		<div>Please note you may have to login before viewing the post or topic.</div>
 		<div>You have received this notification because you have subscribed to it, or are involved in it.</div>
 		<div>To change your notification preferences for all such messages, please click here: %s</div>
-		<div>To unsubscribe from this particular post or topic, please click here: %s</div>
 	</div>
 </div>
 		',
@@ -128,12 +124,9 @@ Or unsubscribe from this particular post or topic, please click here: %s
 		<div>Please note you may have to login before viewing the post or topic.</div>
 		<div>You have received this notification because you have subscribed to it, or are involved in it.</div>
 		<div>To change your notification preferences for all such messages, please click here: %s</div>
-		<div>Or,to unsubscribe from this particular post or topic, please click here: %s</div>
 	</div>
 </div>
 		',
 	);
 					
-	add_translation("en",$english);
-
-?>
+add_translation("en",$english);
