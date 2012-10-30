@@ -5,7 +5,7 @@
  * @package ElggCommentTracker
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @copyright Copyright (c) 2007-2011 Cubet Technologies. (http://cubettechnologies.com)
- * @version  1.0
+ * @version 1.0
  * @author Akhilesh @ Cubet Technologies
  * 
  * updated to 1.8 by Matt Beckett
@@ -14,17 +14,17 @@
 global $NOTIFICATION_HANDLERS, $CONFIG;
 $user = $vars['user'];
 $view_all_link = elgg_view('output/url', array(
-    'text' => elgg_echo('comment:notification:settings:linktext'),
-    'href' => 'comment_tracker/subscribed/' . $user->username,
-    'is_trusted' => true
+		'text' => elgg_echo('comment:notification:settings:linktext'),
+		'href' => 'comment_tracker/subscribed/' . $user->username,
+		'is_trusted' => true
 ));
 $body = elgg_echo('comment:notification:settings:description');
 $body .= "<br>" . $view_all_link;
 echo elgg_view_module('info', elgg_echo('comment:notification:settings'), $body);
 ?>
 		<table id="notificationstable" cellspacing="0" cellpadding="4" border="1" width="100%">
-  			<tr>
-    			<td>&nbsp;</td>
+				<tr>
+					<td>&nbsp;</td>
 				<?php
 				$i = 0; 
 				foreach($NOTIFICATION_HANDLERS as $method => $foo)
@@ -39,8 +39,8 @@ echo elgg_view_module('info', elgg_echo('comment:notification:settings'), $body)
 					$i++;
 				}
 				?>
-    			<td>&nbsp;</td>
-  			</tr>
+					<td>&nbsp;</td>
+				</tr>
 			<?php	
 			$fields = '';
 			$i = 0;
@@ -69,10 +69,10 @@ END;
 			?>
 			<tr>
 				<td class="namefield">
-			    	<p>
-			    		<?php echo elgg_echo('comment:notification:settings:how'); ?>
-			    	</p>
-			    </td>
+						<p>
+							<?php echo elgg_echo('comment:notification:settings:how'); ?>
+						</p>
+					</td>
 				<?php echo $fields; ?>
 				<td>&nbsp;</td>
 			</tr>

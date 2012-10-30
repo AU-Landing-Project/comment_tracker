@@ -7,15 +7,15 @@ function comment_tracker_is_subscribed($user, $entity) {
 	if (!$user || !elgg_instanceof($user, 'user')) {
 		return false;
 	}
-  
+	
 	if (!$entity || !($entity instanceof ElggEntity)) {
 		return false;
 	}
-  
+	
 	$result = check_entity_relationship($user->guid, 'comment_subscribe', $entity->guid);
-  
+	
 	$params = array('user' => $user, 'entity' => $entity);
-  
+	
 	// allow other plugins to affect the behaviour
 	return elgg_trigger_plugin_hook('subscription_check', 'comment_tracker', $params, $result);
 }
@@ -27,12 +27,12 @@ function comment_tracker_notify($annotation, $ann_user, $params = array()) {
 	global $NOTIFICATION_HANDLERS, $CONFIG;
 	
 	if (!($annotation instanceof ElggAnnotation)) {
-    	return false;
+		return false;
 	}
-  
+	
 	$entity = get_entity($annotation->entity_guid);
-  
-	if ($entity instanceof ElggObject)	{
+	
+	if ($entity instanceof ElggObject) {
 		$container = get_entity($entity->container_guid);
 		$group_lang = ($entity->getSubtype() == 'groupforumtopic') ? "group:" : '';
 		
@@ -48,11 +48,13 @@ function comment_tracker_notify($annotation, $ann_user, $params = array()) {
 		
 	 	$subject = sprintf(elgg_echo("comment:notify:{$group_lang}subject"), $entity->title);
 		
-		$options = array('relationship' => COMMENT_TRACKER_RELATIONSHIP,
-						 'relationship_guid' => $annotation->entity_guid,
-						 'inverse_relationship' => true,
-						 'types' => 'user',
-						 'limit' => 0);
+		$options = array(
+			'relationship' => COMMENT_TRACKER_RELATIONSHIP,
+			'relationship_guid' => $annotation->entity_guid,
+			'inverse_relationship' => true,
+			'types' => 'user',
+			'limit' => 0
+		);
 		
 		$users = elgg_get_entities_from_relationship($options);
 		
@@ -61,13 +63,12 @@ function comment_tracker_notify($annotation, $ann_user, $params = array()) {
 			// Make sure user is real
 			// Do not notify the author of comment
 			if ($user instanceof ElggUser && $user->guid != $ann_user->guid) {
-                
-			    if ($user->guid == $entity->owner_guid) {
+				if ($user->guid == $entity->owner_guid) {
 					// user is the owner of the entity being commented on
 					continue;
-			    }
+				}
 				
-        		$notify_settings_link = elgg_get_site_url() . "notifications/personal/{$user->username}";
+				$notify_settings_link = elgg_get_site_url() . "notifications/personal/{$user->username}";
 				
 				// Results for a user are...
 				$result[$user->guid] = array();
@@ -120,18 +121,15 @@ function comment_tracker_notify($annotation, $ann_user, $params = array()) {
 					elgg_log("Sending message to {$user->guid} using $method");
 	
 					// Trigger handler and retrieve result.
-					try 
-					{
+					try {
 						$result[$user->guid][$method] = $handler(
-							$from , 		// From entity
-							$user, 			// To entity
-							$subject,		// The subject
-							$message, 		// Message
-							$params			// Params
+							$from , 	// From entity
+							$user, 		// To entity
+							$subject,	// The subject
+							$message, 	// Message
+							$params		// Params
 						);
-					}
-					catch (Exception $e)
-					{
+					} catch (Exception $e) {
 						error_log($e->getMessage());
 					}
 				}
@@ -146,12 +144,12 @@ function comment_tracker_notify($annotation, $ann_user, $params = array()) {
  * Subscribe user to notifications
  */
 function comment_tracker_subscribe($user_guid, $entity_guid) {
-	if (elgg_is_logged_in())	{
+	if (elgg_is_logged_in()) {
 		if (empty($user_guid)) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
 		
-		if (empty($user_guid) || empty($entity_guid))	{
+		if (empty($user_guid) || empty($entity_guid)) {
 			return false;
 		}
 		
@@ -171,11 +169,11 @@ function comment_tracker_unsubscribe($user_guid, $entity_guid) {
 			$user_guid = elgg_get_logged_in_user_guid();
 		}
 		
-		if (empty($user_guid) || empty($entity_guid))	{
+		if (empty($user_guid) || empty($entity_guid)) {
 			return false;
 		}
 		
-		if (check_entity_relationship($user_guid, COMMENT_TRACKER_RELATIONSHIP, $entity_guid))	{
+		if (check_entity_relationship($user_guid, COMMENT_TRACKER_RELATIONSHIP, $entity_guid)) {
 			return remove_entity_relationship($user_guid, COMMENT_TRACKER_RELATIONSHIP, $entity_guid);
 		}
 	}
