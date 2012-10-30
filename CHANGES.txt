@@ -11,6 +11,8 @@ x.x:
  - moved subscribe action button to entity menu for consistency
  - AJAX'd the subscribe/unsubscribe action
  - added list of items subscribed to (linked from settings page)
+ - fixed whitespace to conform to elgg standards (Juho Jaakkola http://community.elgg.org/profile/juho.jaakkola)
+ - re-added confirmation/error messages for subscribe action (Juho Jaakkola http://community.elgg.org/profile/juho.jaakkola)
 
 1.1 (08/30/2012):
  - fixed markup of subscribe/unsubscribe buttons on discussion page (IE/Opera had issues)

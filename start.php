@@ -43,7 +43,7 @@ function comment_tracker_init() {
 	// save our settings
 	elgg_register_plugin_hook_handler('action', 'notificationsettings/save', 'comment_tracker_savesettings');
 	// add our subscription links
-	elgg_register_plugin_hook_handler('register', 'menu:entity', 'comment_tracker_entity_menu');
+	elgg_register_plugin_hook_handler('register', 'menu:entity', 'comment_tracker_entity_menu', 501);
 
 	// register events
 	elgg_register_event_handler('create', 'annotation','comment_tracker_notifications');
