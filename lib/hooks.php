@@ -1,32 +1,30 @@
 <?php
 
-
 function comment_tracker_entity_menu($hook, $type, $return, $params) {
-  if (elgg_is_logged_in()
-          && (elgg_get_logged_in_user_guid() != $params['entity']->owner_guid)
-          && !elgg_in_context('widget')
-          && elgg_instanceof($params['entity'], 'object')
-          ) {
-    
-    $text = '<span data-guid="' . $params['entity']->guid . '">';
-    if (comment_tracker_is_subscribed(elgg_get_logged_in_user_entity(), $params['entity'])) {
-      $text .= elgg_echo('comment:unsubscribe');
-    }
-    else {
-      $text .= elgg_echo('comment:subscribe');
-    }
-    $text .= '</span>';
-    
-    $item = new ElggMenuItem();
-    $item->setName('comment_tracker');
-    $item->setHref('#');
-    $item->setText($text);
-    $item->setLinkClass("comment-tracker-toggle");
-  
-    $return[] = $item;
-  }
-  
-  return $return;
+	if (elgg_is_logged_in()
+			&& (elgg_get_logged_in_user_guid() != $params['entity']->owner_guid)
+			&& !elgg_in_context('widget')
+			&& elgg_instanceof($params['entity'], 'object')
+		) {
+		
+		$text = '<span data-guid="' . $params['entity']->guid . '">';
+		if (comment_tracker_is_subscribed(elgg_get_logged_in_user_entity(), $params['entity'])) {
+			$text .= elgg_echo('comment:unsubscribe');
+		} else {
+			$text .= elgg_echo('comment:subscribe');
+		}
+		$text .= '</span>';
+		
+		$item = new ElggMenuItem();
+		$item->setName('comment_tracker');
+		$item->setHref('#');
+		$item->setText($text);
+		$item->setLinkClass("comment-tracker-toggle");
+		
+		$return[] = $item;
+	}
+	
+	return $return;
 }
 
 /*
@@ -34,15 +32,14 @@ function comment_tracker_entity_menu($hook, $type, $return, $params) {
  * save our settings
  */
 function comment_tracker_savesettings($hook, $type, $return, $params) {
-  global $NOTIFICATION_HANDLERS, $CONFIG;
-  foreach($NOTIFICATION_HANDLERS as $method => $foo) {
-    $subscriptions[$method] = get_input($method.'commentsubscriptions');
-    
-    if(!empty($subscriptions[$method])) {
-  		remove_entity_relationship(elgg_get_logged_in_user_guid(), 'block_comment_notify'.$method, $CONFIG->site_guid);
-    }
-    else {
-      add_entity_relationship(elgg_get_logged_in_user_guid(), 'block_comment_notify'.$method, $CONFIG->site_guid);
-    }
-  }
+	global $NOTIFICATION_HANDLERS, $CONFIG;
+	foreach($NOTIFICATION_HANDLERS as $method => $foo) {
+		$subscriptions[$method] = get_input($method.'commentsubscriptions');
+		
+		if (!empty($subscriptions[$method])) {
+			remove_entity_relationship(elgg_get_logged_in_user_guid(), 'block_comment_notify'.$method, $CONFIG->site_guid);
+		} else {
+			add_entity_relationship(elgg_get_logged_in_user_guid(), 'block_comment_notify'.$method, $CONFIG->site_guid);
+		}
+	}
 }
