@@ -20,6 +20,7 @@ function comment_tracker_entity_menu($hook, $type, $return, $params) {
 		$item->setHref('#');
 		$item->setText($text);
 		$item->setLinkClass("comment-tracker-toggle");
+		$item->setPriority(150);
 		
 		$return[] = $item;
 	}
