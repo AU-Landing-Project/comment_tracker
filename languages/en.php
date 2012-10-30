@@ -5,7 +5,7 @@
  * @package ElggCommentTracker
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @copyright Copyright (c) 2007-2011 Cubet Technologies. (http://cubettechnologies.com)
- * @version  1.0
+ * @version 1.0
  * @author Akhilesh @ Cubet Technologies
  */
 
@@ -14,9 +14,9 @@
 		'comment:notification:settings' => 'Comment notifications',
 		'comment:notification:settings:description' => 'Notify when comments are posted to items you have subscribed to.',
 		'comment:notification:settings:how' => 'Select your method of notification',
-    'comment:notification:settings:linktext' => 'View all items to which you are subscribed',
-    'comment:subscriptions' => 'Subscriptions',
-    'comment:subscriptions:none' => 'No current subscriptions',
+		'comment:notification:settings:linktext' => 'View all items to which you are subscribed',
+		'comment:subscriptions' => 'Subscriptions',
+		'comment:subscriptions:none' => 'No current subscriptions',
 		'allow:comment:notification' => 'Do you want to enable notification? ',
 		'email:content:type' => 'Do you want to support HTML Email? ',
 		'text:email' => 'No',
@@ -43,7 +43,7 @@ You have received this notification because you have subscribed to it, or are in
 To change your notification preferences, please click here: %s<br/>
 </font>
 		',
-	  	'comment:notify:group:body:web' => 'Hi %s,
+			'comment:notify:group:body:web' => 'Hi %s,
 <br/>There is a new post in the thread %s
 <br/>%s wrote: %s
 <br/>%s
@@ -73,7 +73,7 @@ You have received this notification because you have subscribed to it, or are in
 To change your notification preferences for all such messages, please click here: %s
 </font>
 		',
-	  	'comment:notify:group:body:email:text' => 'Hi %s,
+			'comment:notify:group:body:email:text' => 'Hi %s,
 
 There is a new post in the thread %s
 
@@ -111,7 +111,7 @@ To change your notification preferences for all such messages, please click here
 	</div>
 </div>
 		',
-	  	'comment:notify:group:body:email:html' => '
+			'comment:notify:group:body:email:html' => '
 <div>
 	<div>Hi %s,</div>
 	<div>There is a new post in the thread %s</div>
