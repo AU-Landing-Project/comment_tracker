@@ -63,6 +63,8 @@ function comment_tracker_page_handler($page) {
 		return false;
 	}
 	
+	elgg_set_context('settings');
+	
 	// display subscribed items
 	$content = elgg_list_entities_from_relationship(array(
 		'relationship_guid' => $user->guid,

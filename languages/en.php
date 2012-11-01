@@ -17,6 +17,7 @@
 		'comment:notification:settings:linktext' => 'View all items to which you are subscribed',
 		'comment:subscriptions' => 'Subscriptions',
 		'comment:subscriptions:none' => 'No current subscriptions',
+		'comment:subscribe:tooltip' => 'Subscribe to receive notifications when comments are made on this content',
 		'allow:comment:notification' => 'Do you want to enable notification? ',
 		'email:content:type' => 'Do you want to support HTML Email? ',
 		'text:email' => 'No',
