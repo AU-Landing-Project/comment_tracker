@@ -38,10 +38,7 @@ function comment_tracker_entity_menu($hook, $type, $return, $params) {
 		  }
 		  $text .= '</span>';
 		
-		  $item = new ElggMenuItem();
-		  $item->setName('comment_tracker');
-		  $item->setHref('#');
-		  $item->setText($text);
+		  $item = new ElggMenuItem('comment_tracker', $text, '#');
 		  $item->setTooltip(elgg_echo('comment:subscribe:tooltip'));
 		  $item->setLinkClass("comment-tracker-toggle");
 		  $item->setPriority(150);

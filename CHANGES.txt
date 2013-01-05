@@ -2,6 +2,9 @@
 
 x.x:
 
+1.3 ():
+ - fixes php warning in menu item registration
+
 1.2(10/29/2012):
  - removed unregistration of non-existent event handler causing php warnings due to empty foreach
  - moved comment notification settings to notifications page
