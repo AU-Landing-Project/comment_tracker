@@ -15,10 +15,7 @@ function comment_tracker_entity_menu($hook, $type, $return, $params) {
 		}
 		$text .= '</span>';
 		
-		$item = new ElggMenuItem();
-		$item->setName('comment_tracker');
-		$item->setHref('#');
-		$item->setText($text);
+		$item = new ElggMenuItem('comment_tracker', $text, '#');
 		$item->setLinkClass("comment-tracker-toggle");
 		
 		$return[] = $item;
