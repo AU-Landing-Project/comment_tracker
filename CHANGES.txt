@@ -2,6 +2,12 @@
 
 x.x:
 
+1.4 (06/30/2013):
+ - fixes run-once upgrade logic
+ - adds option to use a subscribe/unsubscribe button above comments view (like in older versions)
+ - button works using new ajax system still
+(Changes for Version 1.4 funded by GriffinGroups.com)
+
 1.3 ():
  - fixes php warning in menu item registration
 

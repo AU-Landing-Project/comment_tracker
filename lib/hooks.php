@@ -7,27 +7,7 @@ function comment_tracker_entity_menu($hook, $type, $return, $params) {
 			&& elgg_instanceof($params['entity'], 'object')
 		) {
 		
-		// only allow subscriptions on objects that have comments
-		// pre-populate with some common plugin objects
-		// allow other plugins to add/remove subtypes
-		static $subscription_subtypes;
-		
-		if (!$subscription_subtypes) {
-		  $base_types = array(
-			  'blog',
-			  'bookmarks',
-			  'event_calendar', // event calendar
-			  'file',
-			  'groupforumtopic',
-			  'image',	// tidypics
-			  'page',
-			  'page_top',
-			  'poll'  // poll
-		  );
-		  
-		  // other plugins can add allowed object subtypes in this hook
-		  $subscription_subtypes = elgg_trigger_plugin_hook('subscription_types', 'comment_tracker', array(), $base_types);
-		}
+        $subscription_subtypes = comment_tracker_get_entity_subtypes();
 		
 		if (in_array($params['entity']->getSubtype(), $subscription_subtypes)) {
 		  $text = '<span data-guid="' . $params['entity']->guid . '">';

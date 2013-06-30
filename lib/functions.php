@@ -184,7 +184,37 @@ function comment_tracker_unsubscribe($user_guid, $entity_guid) {
  * Rename typo in plugin setting name
  */
 function comment_tracker_update_20121025a() {
-	$plugin_settings = elgg_get_plugin_from_id('comment_tracker');
-	$plugin_settings->allow_comment_notification = $plugin_settings->allow_commnet_notification;
-	$plugin_settings->save();
+	$plugin = elgg_get_plugin_from_id('comment_tracker');
+    
+    if ($plugin) {
+        $plugin->allow_comment_notification = $plugin_settings->allow_commnet_notification;
+        $plugin->save();
+    }
+}
+
+
+function comment_tracker_get_entity_subtypes() {
+    	// only allow subscriptions on objects that have comments
+		// pre-populate with some common plugin objects
+		// allow other plugins to add/remove subtypes
+		static $subscription_subtypes;
+		
+		if (!$subscription_subtypes) {
+		  $base_types = array(
+			  'blog',
+			  'bookmarks',
+			  'event_calendar', // event calendar
+			  'file',
+			  'groupforumtopic',
+			  'image',	// tidypics
+			  'page',
+			  'page_top',
+			  'poll'  // poll
+		  );
+		  
+		  // other plugins can add allowed object subtypes in this hook
+		  $subscription_subtypes = elgg_trigger_plugin_hook('subscription_types', 'comment_tracker', array(), $base_types);
+        }
+
+        return $subscription_subtypes;
 }

@@ -17,7 +17,14 @@ $(document).ready( function() {
 			subscribe = 0;
 		}
 		
-		$(this).children(":first").text(replace);
+        
+        // also change text on any other controllers for this item
+        $('.comment-tracker-toggle').each( function() {
+            if ($(this).children(':first').attr('data-guid') == guid) {
+                // this is a controller, update the text
+                $(this).children(':first').text(replace);
+            }
+        });
 		
 		// now update the database
 		elgg.action('comment_tracker/subscribe', {

@@ -32,6 +32,7 @@
 		'comment:unsubscribe:failed' => "Sorry! You couldn't unsubscribe from this post or topic.",
 		'comment:unsubscribe:not:valid:url' => 'Sorry! This is not a valid url to unsubscribe from this post or topic.',
 		'comment:unsubscribe:entity:not:access' => "Sorry! we couldn't find the post or topic.",
+        'comment_tracker:setting:show_button' => "Show subscribe/unsubscribe button above comments view? ",
 		'comment:notify:subject' => 'There is a new comment on %s',
 		'comment:notify:group:subject' => 'There is a new post in the thread %s',
 		'comment:notify:body:web' => 'Hi %s,

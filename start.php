@@ -22,6 +22,11 @@ function comment_tracker_init() {
 	$plugin_settings = elgg_get_plugin_from_id('comment_tracker');
 	elgg_set_config('allow_comment_notification', 'yes');
 	elgg_set_config('email_content_type', 'text');
+    
+    if (elgg_is_logged_in()) {
+        elgg_extend_view('page/elements/comments', "comment_tracker/manage_subscription", 400);
+        elgg_extend_view('discussion/replies', "comment_tracker/manage_subscription", 400);
+    }
 	
 	if (!empty($plugin_settings->allow_comment_notification)) {
 		elgg_set_config('allow_comment_notification', $plugin_settings->allow_comment_notification);
