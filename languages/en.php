@@ -36,6 +36,14 @@
 		'comment:unsubscribe:not:valid:url' => 'Sorry! This is not a valid url to unsubscribe from this post or topic.',
 		'comment:unsubscribe:entity:not:access' => "Sorry! we couldn't find the post or topic.",
         'comment_tracker:setting:show_button' => "Show subscribe/unsubscribe button above comments view? ",
+        'comment_tracker:item' => "item",
+        
+        'comment:notify:subject:groupforumtopic' => '%s added to the discussion %s in the group %s',
+        'comment:notify:subject:comment' => '%s commented on the %s "%s"',
+        'comment:notify:subject:comment:group' => '%s commented on the %s "%s" in the group %s',
+        
+        
+        /* Legacy stuff - @TODO - see what's safe to delete */
 		'comment:notify:subject' => 'There is a new comment on %s',
 		'comment:notify:group:subject' => 'There is a new post in the thread %s',
 		'comment:notify:body:web' => 'Hi %s,

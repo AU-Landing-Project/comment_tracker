@@ -8,6 +8,7 @@ x.x:
  - adds auto-subscription option (enabled by default)
  - adds user notification setting to disable auto-subscription
  - adds block to prevent auto-subscription after manual un-subscription
+ - adds context aware notification subjects (eg. Matt Beckett commented on the blog "Latest News")
 (Changes for 1.5 funded by GriffinGroups.com)
 
 1.4 (06/30/2013):
