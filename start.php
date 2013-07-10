@@ -11,6 +11,7 @@
  * @ 1.8 upgrade by Matt Beckett
  */
 define(COMMENT_TRACKER_RELATIONSHIP, 'comment_subscribe');
+define(COMMENT_TRACKER_UNSUBSCRIBE_RELATIONSHIP, 'comment_tracker_unsubscribed');
 
 require_once 'lib/hooks.php';
 require_once 'lib/events.php';

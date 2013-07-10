@@ -35,14 +35,26 @@ function comment_tracker_entity_menu($hook, $type, $return, $params) {
  * save our settings
  */
 function comment_tracker_savesettings($hook, $type, $return, $params) {
-	global $NOTIFICATION_HANDLERS, $CONFIG;
+    
+    $guid = get_input('guid');
+    $user = get_user($guid);
+    
+    if (!elgg_instanceof($user, 'user')) {
+        return $return;
+    }
+    
+	global $NOTIFICATION_HANDLERS;
 	foreach($NOTIFICATION_HANDLERS as $method => $foo) {
 		$subscriptions[$method] = get_input($method.'commentsubscriptions');
 		
 		if (!empty($subscriptions[$method])) {
-			remove_entity_relationship(elgg_get_logged_in_user_guid(), 'block_comment_notify'.$method, $CONFIG->site_guid);
+			remove_entity_relationship($user->guid, 'block_comment_notify'.$method, elgg_get_site_entity()->guid);
 		} else {
-			add_entity_relationship(elgg_get_logged_in_user_guid(), 'block_comment_notify'.$method, $CONFIG->site_guid);
+			add_entity_relationship($user->guid, 'block_comment_notify'.$method, elgg_get_site_entity()->guid);
 		}
 	}
+    
+    // save autosubscribe settings
+    $autosubscribe = get_input('comment_tracker_autosubscribe');
+    elgg_set_plugin_user_setting('comment_tracker_autosubscribe', $autosubscribe, $user->guid, 'comment_tracker');
 }

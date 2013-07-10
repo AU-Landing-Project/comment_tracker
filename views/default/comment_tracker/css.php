@@ -10,15 +10,6 @@
  */
 ?>
 .comment_trackerWrapper {
-	background:white;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	padding:10px;
-	margin:0 10px 10px 10px;}
-	
-#topic_posts .comment_trackerWrapper {
-	margin: 0;}
-	
-#topic_posts .comment_trackerWrapper form {
-	margin: 0;
-	padding: 0;}
+    margin-top: 25px;
+    margin-bottom: -15px;
+}

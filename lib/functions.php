@@ -12,13 +12,37 @@ function comment_tracker_is_subscribed($user, $entity) {
 		return false;
 	}
 	
-	$result = check_entity_relationship($user->guid, 'comment_subscribe', $entity->guid);
+	$result = check_entity_relationship($user->guid, COMMENT_TRACKER_RELATIONSHIP, $entity->guid);
 	
 	$params = array('user' => $user, 'entity' => $entity);
 	
 	// allow other plugins to affect the behaviour
 	return elgg_trigger_plugin_hook('subscription_check', 'comment_tracker', $params, $result);
 }
+
+
+/**
+ * returns bool - whether the user has explicitly unsubscribed
+ * @param type $user
+ * @param type $entity
+ */
+function comment_tracker_is_unsubscribed($user, $entity) {
+    if (!elgg_instanceof($user, 'user')) {
+		return false;
+	}
+	
+	if (!elgg_instanceof($entity)) {
+		return false;
+	}
+	
+	$result = check_entity_relationship($user->guid, COMMENT_TRACKER_UNSUBSCRIBE_RELATIONSHIP, $entity->guid);
+	
+	$params = array('user' => $user, 'entity' => $entity);
+	
+	// allow other plugins to affect the behaviour
+	return elgg_trigger_plugin_hook('unsubscription_check', 'comment_tracker', $params, $result);
+}
+
 
 /**
  * Notify subscribed users with their preferred notification methods
@@ -154,6 +178,8 @@ function comment_tracker_subscribe($user_guid, $entity_guid) {
 		}
 		
 		if (!check_entity_relationship($user_guid, COMMENT_TRACKER_RELATIONSHIP, $entity_guid)) {
+            // undo a subscription block
+            remove_entity_relationship($user_guid, COMMENT_TRACKER_UNSUBSCRIBE_RELATIONSHIP, $entity_guid);
 			return add_entity_relationship($user_guid, COMMENT_TRACKER_RELATIONSHIP, $entity_guid);
 		}
 	}
@@ -174,6 +200,8 @@ function comment_tracker_unsubscribe($user_guid, $entity_guid) {
 		}
 		
 		if (check_entity_relationship($user_guid, COMMENT_TRACKER_RELATIONSHIP, $entity_guid)) {
+            // add a subscription block
+            add_entity_relationship($user_guid, COMMENT_TRACKER_UNSUBSCRIBE_RELATIONSHIP, $entity_guid);
 			return remove_entity_relationship($user_guid, COMMENT_TRACKER_RELATIONSHIP, $entity_guid);
 		}
 	}

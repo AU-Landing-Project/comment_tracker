@@ -20,6 +20,21 @@ $view_all_link = elgg_view('output/url', array(
 ));
 $body = elgg_echo('comment:notification:settings:description');
 $body .= "<br>" . $view_all_link;
+
+$body .= '<br><br>';
+
+$body .= elgg_echo('comment_tracker:setting:autosubscribe') . '&nbsp;';
+
+$value = elgg_get_plugin_user_setting('comment_tracker_autosubscribe', $user->guid, 'comment_tracker');
+$body .= elgg_view('input/dropdown', array(
+    'name' => 'comment_tracker_autosubscribe',
+    'value' => $value ? $value : 'yes',
+    'options_values' => array(
+        'yes' => elgg_echo('option:yes'),
+        'no' => elgg_echo('option:no')
+    )
+));
+
 echo elgg_view_module('info', elgg_echo('comment:notification:settings'), $body);
 ?>
 		<table id="notificationstable" cellspacing="0" cellpadding="4" border="1" width="100%">

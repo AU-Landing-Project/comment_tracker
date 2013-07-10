@@ -2,6 +2,14 @@
 
 x.x:
 
+1.5 (07/10/2013):
+ - adds better language for large subscription button
+ - better styling to associate subscription button to comments
+ - adds auto-subscription option (enabled by default)
+ - adds user notification setting to disable auto-subscription
+ - adds block to prevent auto-subscription after manual un-subscription
+(Changes for 1.5 funded by GriffinGroups.com)
+
 1.4 (06/30/2013):
  - fixes run-once upgrade logic
  - adds option to use a subscribe/unsubscribe button above comments view (like in older versions)
