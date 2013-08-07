@@ -37,7 +37,7 @@ if (!$email_content_type) $email_content_type = 'text';
 				'yes' => elgg_echo('option:yes'),
 				'no' => elgg_echo('option:no')
 			),
-			'value' => $vars['entity']->notify_owner ? $vars['entity']->notify_owner : 'yes'
+			'value' => $vars['entity']->notify_owner ? $vars['entity']->notify_owner : 'no'
 		));
 	?>
 </p>
