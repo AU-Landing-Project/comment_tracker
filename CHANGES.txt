@@ -2,6 +2,10 @@
 
 x.x:
 
+1.6 ():
+ - Removes old useless plugin settings
+ - adds support for comment tracker to handle owner notifications
+
 1.5 (07/10/2013):
  - adds better language for large subscription button
  - better styling to associate subscription button to comments
