@@ -114,13 +114,14 @@ function comment_tracker_notify($annotation, $ann_user, $params = array()) {
 		);
 		
 		$users = elgg_get_entities_from_relationship($options);
+		$notify_owner = elgg_get_plugin_setting('notify_owner', 'comment_tracker');
 		
 		$result = array();
 		foreach ($users as $user) {
 			// Make sure user is real
 			// Do not notify the author of comment
 			if ($user instanceof ElggUser && $user->guid != $ann_user->guid) {
-				if ($user->guid == $entity->owner_guid) {
+				if (($user->guid == $entity->owner_guid) && $notify_owner != 'yes') {
 					// user is the owner of the entity being commented on
 					continue;
 				}
@@ -135,7 +136,7 @@ function comment_tracker_notify($annotation, $ann_user, $params = array()) {
 						continue;
 					}
 					
-					$from = $container;
+					$from = $ann_user;
 					switch ($method) {
 						case 'sms':
 						case 'site':
@@ -152,7 +153,7 @@ function comment_tracker_notify($annotation, $ann_user, $params = array()) {
 							break;
 						case 'email':
 						default:
-							$message = elgg_echo("comment:notify:{$group_lang}body:email:{$CONFIG->email_content_type}", array(
+							$message = elgg_echo("comment:notify:{$group_lang}body:email:text", array(
 								$user->name,
 								$entity_link,
 								$commenter_link,
@@ -239,18 +240,6 @@ function comment_tracker_unsubscribe($user_guid, $entity_guid) {
 		}
 	}
 	return false;
-}
-
-/**
- * Rename typo in plugin setting name
- */
-function comment_tracker_update_20121025a() {
-	$plugin = elgg_get_plugin_from_id('comment_tracker');
-    
-    if ($plugin) {
-        $plugin->allow_comment_notification = $plugin_settings->allow_commnet_notification;
-        $plugin->save();
-    }
 }
 
 

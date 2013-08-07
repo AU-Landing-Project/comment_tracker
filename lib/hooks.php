@@ -1,11 +1,15 @@
 <?php
 
 function comment_tracker_entity_menu($hook, $type, $return, $params) {
-	if (elgg_is_logged_in()
-			&& (elgg_get_logged_in_user_guid() != $params['entity']->owner_guid)
-			&& !elgg_in_context('widget')
-			&& elgg_instanceof($params['entity'], 'object')
-		) {
+	if (!elgg_is_logged_in() || elgg_in_context('widget') || !elgg_instanceof($params['entity'], 'object')) {
+		return $return;
+	}
+	
+	$notify_user = elgg_get_plugin_setting('notify_owner', 'comment_tracker');
+	
+	if (($notify_user != 'yes') && (elgg_get_logged_in_user_guid() == $params['entity']->owner_guid)) {
+		return $return;
+	}
 		
         $subscription_subtypes = comment_tracker_get_entity_subtypes();
 		
@@ -25,7 +29,6 @@ function comment_tracker_entity_menu($hook, $type, $return, $params) {
 		
 		  $return[] = $item;
 		}
-	}
 	
 	return $return;
 }

@@ -19,23 +19,12 @@ require_once 'lib/functions.php';
 
 // Initialise comment tracker plugin
 function comment_tracker_init() {
-	
-	$plugin_settings = elgg_get_plugin_from_id('comment_tracker');
-	elgg_set_config('allow_comment_notification', 'yes');
-	elgg_set_config('email_content_type', 'text');
     
     if (elgg_is_logged_in()) {
         elgg_extend_view('page/elements/comments', "comment_tracker/manage_subscription", 400);
         elgg_extend_view('discussion/replies', "comment_tracker/manage_subscription", 400);
     }
 	
-	if (!empty($plugin_settings->allow_comment_notification)) {
-		elgg_set_config('allow_comment_notification', $plugin_settings->allow_comment_notification);
-	}
-
-	if (!empty($plugin_settings->email_content_type)) {
-		elgg_set_config('email_content_type', $plugin_settings->email_content_type);
-	}
 
 	// Extend views
 	elgg_extend_view('css/elgg', 'comment_tracker/css');
@@ -44,6 +33,12 @@ function comment_tracker_init() {
 	
 	// Register actions
 	elgg_register_action("comment_tracker/subscribe", elgg_get_plugins_path() . "comment_tracker/actions/subscribe.php");
+	
+	$notify_owner = elgg_get_plugin_setting('notify_owner', 'comment_tracker');
+	
+	if ($notify_owner == 'yes') {
+		elgg_register_action("comments/add", elgg_get_plugins_path() . "comment_tracker/actions/comment.php");
+	}
 
 	// plugin hooks
 	// save our settings
@@ -53,6 +48,7 @@ function comment_tracker_init() {
 
 	// register events
 	elgg_register_event_handler('create', 'annotation','comment_tracker_notifications');
+	elgg_register_event_handler('create', 'object', 'comment_tracker_object_creation');
 
 	// set up our pages
 	elgg_register_page_handler('comment_tracker', 'comment_tracker_page_handler');

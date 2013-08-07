@@ -27,16 +27,17 @@ if (!$email_content_type) $email_content_type = 'text';
 		));
 	?>
 </p>
+
 <p>
 	<?php 
-		echo elgg_echo('email:content:type');
+		echo elgg_echo('comment_tracker:setting:notify_owner');
 		echo elgg_view('input/dropdown', array(
-			'name' => 'params[email_content_type]',
+			'name' => 'params[notify_owner]',
 			'options_values' => array(
-				'text' => elgg_echo('text:email'),
-				'html' => elgg_echo('html:email')
+				'yes' => elgg_echo('option:yes'),
+				'no' => elgg_echo('option:no')
 			),
-			'value' => $email_content_type
+			'value' => $vars['entity']->notify_owner ? $vars['entity']->notify_owner : 'yes'
 		));
 	?>
 </p>

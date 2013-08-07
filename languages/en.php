@@ -37,6 +37,7 @@
 		'comment:unsubscribe:entity:not:access' => "Sorry! we couldn't find the post or topic.",
         'comment_tracker:setting:show_button' => "Show subscribe/unsubscribe button above comments view? ",
         'comment_tracker:item' => "item",
+		'comment_tracker:setting:notify_owner' => "Let comment tracker handle owner notifications?",
         
         'comment:notify:subject:groupforumtopic' => '%s added to the discussion %s in the group %s',
         'comment:notify:subject:comment' => '%s commented on the %s "%s"',
