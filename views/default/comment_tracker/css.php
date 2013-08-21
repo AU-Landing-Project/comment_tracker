@@ -13,3 +13,8 @@
     margin-top: 25px;
     margin-bottom: -15px;
 }
+
+.comment-tracker-popup {
+	width: 200px;
+	position: absolute;
+}

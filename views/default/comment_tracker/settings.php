@@ -11,14 +11,16 @@
  * updated to 1.8 by Matt Beckett
  */
 
-global $NOTIFICATION_HANDLERS, $CONFIG;
-$user = $vars['user'];
+global $CONFIG;
+$NOTIFICATION_HANDLERS = _elgg_services()->notifications->getMethodsAsDeprecatedGlobal();
+
+$user = elgg_get_page_owner_entity();
 $view_all_link = elgg_view('output/url', array(
-		'text' => elgg_echo('comment:notification:settings:linktext'),
+		'text' => elgg_echo('comment_tracker:notification:settings:linktext'),
 		'href' => 'comment_tracker/subscribed/' . $user->username,
 		'is_trusted' => true
 ));
-$body = elgg_echo('comment:notification:settings:description');
+$body = elgg_echo('comment_tracker:notification:settings:description');
 $body .= "<br>" . $view_all_link;
 
 $body .= '<br><br>';
@@ -35,7 +37,7 @@ $body .= elgg_view('input/dropdown', array(
     )
 ));
 
-echo elgg_view_module('info', elgg_echo('comment:notification:settings'), $body);
+echo elgg_view_module('info', elgg_echo('comment_tracker:notification:settings'), $body);
 ?>
 		<table id="notificationstable" cellspacing="0" cellpadding="4" border="1" width="100%">
 				<tr>
@@ -85,7 +87,7 @@ END;
 			<tr>
 				<td class="namefield">
 						<p>
-							<?php echo elgg_echo('comment:notification:settings:how'); ?>
+							<?php echo elgg_echo('comment_tracker:notification:settings:how'); ?>
 						</p>
 					</td>
 				<?php echo $fields; ?>

@@ -1,6 +1,9 @@
 == Version History ==
 
-x.x:
+2.0 (dd/mm/2013):
+ - uses the asynchronous Elgg 1.9 notifications system
+ - cleaned up the translation strings
+ - adds possibility to select notification methods freely for each piece of content
 
 1.6 ():
  - Removes old useless plugin settings
