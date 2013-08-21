@@ -1,146 +1,85 @@
 <?php
 /**
- * comment_tracker language extender
- * 
+ * comment_tracker language file
+ *
  * @package ElggCommentTracker
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
- * @copyright Copyright (c) 2007-2011 Cubet Technologies. (http://cubettechnologies.com)
- * @version 1.0
- * @author Akhilesh @ Cubet Technologies
  */
 
-	$english = array(
-		'comments' => "Comments",
-		'comment:notification:settings' => 'Comment notifications',
-		'comment:notification:settings:description' => 'Notify when comments are posted to items you have subscribed to.',
-		'comment:notification:settings:how' => 'Select your method of notification',
-		'comment:notification:settings:linktext' => 'View all items to which you are subscribed',
-		'comment:subscriptions' => 'Subscriptions',
-		'comment:subscriptions:none' => 'No current subscriptions',
-		'comment:subscribe:tooltip' => 'Subscribe to receive notifications when comments are made on this content',
-		'allow:comment:notification' => 'Do you want to enable notification? ',
-		'email:content:type' => 'Do you want to support HTML Email? ',
-		'text:email' => 'No',
-		'html:email' => 'Yes',
-		'comment:subscribe' => 'Subscribe',
-		'comment:unsubscribe' => 'Unsubscribe',
-        'comment:subscribe:long' => 'Subscribe to comment notifications',
-		'comment:unsubscribe:long' => 'Unsubscribe from comment notifications',
-        'comment_tracker:setting:autosubscribe' => "Auto-subscribe to content you comment on?",
-		'show:subscribers' => 'Show Subscribers',
-		'comment:subscribe:success' => 'You have successfully subscribed to this post or topic.',
-		'comment:subscribe:failed' => "Sorry! You couldn't subscribe this post or topic.",
-		'comment:subscribe:entity:not:access' => "Sorry! we couldn't find the post or topic for some reason.",
-		'comment:unsubscribe:success' => 'You have successfully unsubscribed from this post or topic.',
-		'comment:unsubscribe:failed' => "Sorry! You couldn't unsubscribe from this post or topic.",
-		'comment:unsubscribe:not:valid:url' => 'Sorry! This is not a valid url to unsubscribe from this post or topic.',
-		'comment:unsubscribe:entity:not:access' => "Sorry! we couldn't find the post or topic.",
-        'comment_tracker:setting:show_button' => "Show subscribe/unsubscribe button above comments view? ",
-        'comment_tracker:item' => "item",
-		'comment_tracker:setting:notify_owner' => "Let comment tracker handle owner notifications?",
-        
-        'comment:notify:subject:groupforumtopic' => '%s added to the discussion %s in the group %s',
-        'comment:notify:subject:comment' => '%s commented on the %s "%s"',
-        'comment:notify:subject:comment:group' => '%s commented on the %s "%s" in the group %s',
-        
-        
-        /* Legacy stuff - @TODO - see what's safe to delete */
-		'comment:notify:subject' => 'There is a new comment on %s',
-		'comment:notify:group:subject' => 'There is a new post in the thread %s',
-		'comment:notify:body:web' => 'Hi %s,
-<br/>There is a new comment on %s
-<br/>%s wrote: %s
-<br/>%s
-<br/>
-<font color="#888888" size="2">
-You have received this notification because you have subscribed to it, or are involved in it.<br/>
-To change your notification preferences, please click here: %s<br/>
-</font>
-		',
-			'comment:notify:group:body:web' => 'Hi %s,
-<br/>There is a new post in the thread %s
-<br/>%s wrote: %s
-<br/>%s
-<br/>
-<font color="#888888" size="2">
-You have received this notification because you have subscribed to it, or are involved in it.<br/>
-To change your notification preferences, please click here: %s<br/>
-</font>
-		',
-		'comment:notify:body:email:text' => 'Hi %s,
+return array(
+	'comments' => "Comments",
+	'comment_tracker:notification:settings' => 'Comment notifications',
+	'comment_tracker:notification:settings:description' => 'Notify when comments are posted to items you have subscribed to.',
+	'comment_tracker:notification:settings:how' => 'Select your method of notification',
+	'comment_tracker:notification:settings:linktext' => 'View all items to which you are subscribed',
+	'comment_tracker:subscriptions' => 'Subscriptions',
+	'comment_tracker:subscriptions:none' => 'No current subscriptions',
+	'comment_tracker:subscribe:tooltip' => 'Receive notifications when comments are made on this content',
+	'comment_tracker:subscription_settings:tooltip' => 'Manage notification settings for this content',
+	'comment_tracker:notifications:enable' => 'Do you want to enable notification? ',
+
+	// Subscriptions
+	'comment_tracker:subscribe' => 'Subscribe',
+	'comment_tracker:unsubscribe' => 'Unsubscribe',
+	'comment_tracker:entity:settings' => 'Subscription',
+	'comment_tracker:popup:title' => 'subscription settings',
+	'comment_tracker:subscribe:long' => 'Subscribe to comment notifications',
+	'comment_tracker:unsubscribe:long' => 'Unsubscribe from comment notifications',
+	'comment_tracker:setting:autosubscribe' => "Auto-subscribe to content you comment on?",
+	'show:subscribers' => 'Show Subscribers',
+	'comment_tracker:subscribe:success' => 'You have successfully subscribed to this post or topic.',
+	'comment_tracker:subscribe:failed' => "Sorry! You couldn't subscribe this post or topic.",
+	'comment_tracker:subscribe:entity:not:access' => "Sorry! we couldn't find the post or topic for some reason.",
+	'comment_tracker:unsubscribe:success' => 'You have successfully unsubscribed from this post or topic.',
+	'comment_tracker:unsubscribe:failed' => "Sorry! You couldn't unsubscribe from this post or topic.",
+	'comment_tracker:unsubscribe:not:valid:url' => 'Sorry! This is not a valid url to unsubscribe from this post or topic.',
+	'comment_tracker:unsubscribe:entity:not:access' => "Sorry! we couldn't find the post or topic.",
+
+	// New strings that may replace the old ones
+	'comment_tracker:subscription:success' => 'Subscription settings saved successfully',
+	'comment_tracker:subscription:failed' => 'There was an error saving your subscription settings',
+	'comment_tracker:error:no_methods' => "You haven't defined notification settings for comment notifications. You can add them %s at the end of the page.",
+	'comment_tracker:error:no_methods:link' => 'here',
+
+	'comment_tracker:setting:show_button' => "Show subscribe/unsubscribe button above comments view?",
+	'comment_tracker:item' => "item",
+	'comment_tracker:setting:notify_owner' => "Let comment tracker handle owner notifications?",
+
+	// Personal notifications
+	'comment_tracker:notify:subject' => '%s commented on the %s "%s"',
+	'comment_tracker:notify:subject:group' => '%s commented on the %s "%s" in the group %s',
+	'comment_tracker:notify:body' => 'Hi %s,
 
 There is a new comment on %s
 
-%s wrote: %s
+%s wrote:
 
 %s
-
-Regards,
-%s
-
-_________________________________________________________________________________
-<font color="#888888" size="2">
-Please note you may have to login before viewing the post or topic.
 
 You have received this notification because you have subscribed to it, or are involved in it.
 
-To change your notification preferences for all such messages, please click here: %s
-</font>
-		',
-			'comment:notify:group:body:email:text' => 'Hi %s,
+You can change your notification settings here:
+%s',
+
+	// Group notifications
+	'comment_tracker:notify:groupforumtopic:subject' => '%s posted to the discussion %s in the group %s',
+	'comment_tracker:notify:groupforumtopic:body' => 'Hi %s,
 
 There is a new post in the thread %s
 
-%s wrote: %s
+%s wrote:
 
 %s
-
-Regards,
-%s
-
-_________________________________________________________________________________
-<font color="#888888" size="2">
-Please note you may have to login before viewing the post or topic.
 
 You have received this notification because you have subscribed to it, or are involved in it.
 
-To change your notification preferences for all such messages, please click here: %s
-</font>
-		',
-	
-	'comment:notify:body:email:html' => '
-<div>
-	<div>Hi %s,</div>
-	<div>There is a new comment on %s</div>
-	<div>%s wrote: %s</div>
-	<div>%s</div>
-	<div>&nbsp;</div>
-	<div>Regards,</div></div>
-	<div>%s</div>
-	<div>&nbsp;</div>
-	<div style="border-top:1px solid #CCCCCC;color:#888888;">
-		<div>Please note you may have to login before viewing the post or topic.</div>
-		<div>You have received this notification because you have subscribed to it, or are involved in it.</div>
-		<div>To change your notification preferences for all such messages, please click here: %s</div>
-	</div>
-</div>
-		',
-			'comment:notify:group:body:email:html' => '
-<div>
-	<div>Hi %s,</div>
-	<div>There is a new post in the thread %s</div>
-	<div>%s wrote: %s</div>
-	<div>%s</div>
-	<div>&nbsp;</div>
-	<div>Regards,</div>
-	<div>%s</div>
-	<div style="border-top:1px solid #CCCCCC;color:#888888;">
-		<div>Please note you may have to login before viewing the post or topic.</div>
-		<div>You have received this notification because you have subscribed to it, or are involved in it.</div>
-		<div>To change your notification preferences for all such messages, please click here: %s</div>
-	</div>
-</div>
-		',
-	);
-					
-add_translation("en",$english);
+You can change your notification settings here:
+%s',
+
+	// Admin panel
+	'admin:comment_tracker' => 'Comment tracker',
+	'admin:comment_tracker:upgrade' => 'Upgrades',
+	'comment_tracker:upgrade:dependency' => 'You need to run the %s before this one.',
+	'admin:comment_tracker:upgrade1' => 'Settings upgrade',
+	'admin:comment_tracker:upgrade2' => 'Subscriptions upgrade',
+	'comment_tracker:upgrade:usersettings_failure' => 'Failed to upgrade notification settings for user %s (GUID: %s)',
+);

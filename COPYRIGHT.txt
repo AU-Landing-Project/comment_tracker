@@ -1,0 +1,11 @@
+COPYRIGHT
+
+Original version
+----------------
+2007-2011 Cubet Technologies (http://cubettechnologies.com)
+Akhilesh
+
+Upgrades and improvements
+-------------------------
+Matt Beckett
+Juho Jaakkola

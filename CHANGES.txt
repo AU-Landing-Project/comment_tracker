@@ -1,6 +1,8 @@
 == Version History ==
 
-x.x:
+2.0 (dd/mm/2014):
+ - uses the asynchronous Elgg 1.9 notifications system
+ - cleaned up the translation strings
 
 1.6 ():
  - Removes old useless plugin settings

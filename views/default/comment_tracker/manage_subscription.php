@@ -18,19 +18,19 @@ $subscription_subtypes = comment_tracker_get_entity_subtypes();
 $show_button = elgg_get_plugin_setting('show_button', 'comment_tracker');
 
 if ($show_button == 'yes' && in_array($entity->getSubtype(), $subscription_subtypes)) {
-		  $text = '<span data-guid="' . $entity->guid . '">';
-		  if (comment_tracker_is_subscribed(elgg_get_logged_in_user_entity(), $entity)) {
-              $text .= elgg_echo('comment:unsubscribe:long');
-		  } else {
-			  $text .= elgg_echo('comment:subscribe:long');
-		  }
-		  $text .= '</span>';
-          
-          $link = elgg_view('output/url', array(
-              'text' => $text,
-              'href' => false,
-              'class' => 'comment-tracker-toggle elgg-button elgg-button-action',
-          ));
+	  $text = '<span data-guid="' . $entity->guid . '">';
+	  if (comment_tracker_is_subscribed(elgg_get_logged_in_user_entity(), $entity)) {
+          $text .= elgg_echo('comment_tracker:unsubscribe:long');
+	  } else {
+		  $text .= elgg_echo('comment_tracker:subscribe:long');
+	  }
+	  $text .= '</span>';
+
+      $link = elgg_view('output/url', array(
+          'text' => $text,
+          'href' => false,
+          'class' => 'comment-tracker-toggle elgg-button elgg-button-action',
+      ));
 ?>
 <div class="comment_trackerWrapper">
     <?php echo $link; ?>

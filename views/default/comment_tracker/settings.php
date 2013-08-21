@@ -1,24 +1,20 @@
 <?php
 /**
  * Notification settings for comment tracker view
- * 
+ *
  * @package ElggCommentTracker
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @copyright Copyright (c) 2007-2011 Cubet Technologies. (http://cubettechnologies.com)
- * @version 1.0
  * @author Akhilesh @ Cubet Technologies
- * 
- * updated to 1.8 by Matt Beckett
  */
 
-global $NOTIFICATION_HANDLERS, $CONFIG;
-$user = $vars['user'];
+$user = elgg_get_page_owner_entity();
 $view_all_link = elgg_view('output/url', array(
-		'text' => elgg_echo('comment:notification:settings:linktext'),
-		'href' => 'comment_tracker/subscribed/' . $user->username,
-		'is_trusted' => true
+	'text' => elgg_echo('comment_tracker:notification:settings:linktext'),
+	'href' => 'comment_tracker/subscribed/' . $user->username,
+	'is_trusted' => true
 ));
-$body = elgg_echo('comment:notification:settings:description');
+$body = elgg_echo('comment_tracker:notification:settings:description');
 $body .= "<br>" . $view_all_link;
 
 $body .= '<br><br>';
@@ -35,60 +31,43 @@ $body .= elgg_view('input/dropdown', array(
     )
 ));
 
-echo elgg_view_module('info', elgg_echo('comment:notification:settings'), $body);
+echo elgg_view_module('info', elgg_echo('comment_tracker:notification:settings'), $body);
+
+$all_handlers = _elgg_services()->notifications->getMethods();
+$methods = comment_tracker_get_user_notification_methods($user->guid);
 ?>
-		<table id="notificationstable" cellspacing="0" cellpadding="4" border="1" width="100%">
-				<tr>
-					<td>&nbsp;</td>
-				<?php
-				$i = 0; 
-				foreach($NOTIFICATION_HANDLERS as $method => $foo)
-				{
-					if ($i > 0)
-					{
-						echo "<td class=\"spacercolumn\">&nbsp;</td>";
-					}
-				?>
-					<td class="<?php echo $method; ?>togglefield"><?php echo elgg_echo('notification:method:'.$method); ?></td>
-				<?php
-					$i++;
-				}
-				?>
-					<td>&nbsp;</td>
-				</tr>
-			<?php	
-			$fields = '';
-			$i = 0;
-			foreach($NOTIFICATION_HANDLERS as $method => $foo)
-			{
-				if (!check_entity_relationship($user->guid, 'block_comment_notify' . $method, $CONFIG->site_guid))
-				{
-					$checked[$method] = 'checked="checked"';
-				} 
-				else
-				{
-					$checked[$method] = '';
-				}
-				
-				if ($i > 0) {
-					$fields .= "<td class=\"spacercolumn\">&nbsp;</td>";
-				}
-				
-				$fields .= <<< END
-					<td class="{$method}togglefield">
-					<a border="0" id="comment{$method}" class="{$method}toggleOff" onclick="adjust{$method}_alt('comment{$method}');">
-					<input type="checkbox" name="{$method}commentsubscriptions[]" id="{$method}checkbox" onclick="adjust{$method}('comment{$method}');" value="comment" {$checked[$method]} /></a></td>
-END;
-				$i++;
+
+<table id="notificationstable" cellspacing="0" cellpadding="4" border="1" width="100%">
+	<tr>
+		<td>&nbsp;</td>
+		<?php
+			// Print handler names
+			foreach ($all_handlers as $key => $handler) {
+				$handler_name = elgg_echo("notification:method:{$handler}");
+				echo "<td class=\"{$handler}togglefield\">$handler_name</td>";
+				echo "<td class=\"\">&nbsp;</td>";
 			}
-			?>
-			<tr>
-				<td class="namefield">
-						<p>
-							<?php echo elgg_echo('comment:notification:settings:how'); ?>
-						</p>
-					</td>
-				<?php echo $fields; ?>
-				<td>&nbsp;</td>
-			</tr>
-		</table>
+		?>
+	</tr>
+	<tr>
+		<td class="namefield"><p><?php echo elgg_echo('comment_tracker:notification:settings:how'); ?></p></td>
+		<?php
+			// Print a checkbox for each notification method
+			foreach ($all_handlers as $method) {
+				$params = array(
+					'name' => "{$method}commentsubscriptions",
+				);
+
+				if (in_array($method, $methods)) {
+					$params['checked'] = 'checked';
+				}
+
+				$checkbox = elgg_view('input/checkbox', $params);
+				$icon = "<a id=\"comment{$method}\" class=\"{$method}toggleOff\" onclick=\"adjust{$method}_alt('comment{$method}');\">";
+
+				echo "<td class=\"{$method}togglefield\">{$icon}{$checkbox}</td>";
+				echo "<td>&nbsp;</td>";
+			}
+		?>
+	</tr>
+</table>
