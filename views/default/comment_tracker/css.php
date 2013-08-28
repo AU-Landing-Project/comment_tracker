@@ -13,3 +13,16 @@
     margin-top: 25px;
     margin-bottom: -15px;
 }
+
+.comment-tracker-popup {
+	width: 200px;
+	position: absolute;
+}
+
+li.elgg-menu-item-comment-tracker-settings {
+	margin-left: 0px;
+}
+
+li.elgg-menu-item-comment-tracker-settings .elgg-icon {
+	margin-left: 0px;
+}
