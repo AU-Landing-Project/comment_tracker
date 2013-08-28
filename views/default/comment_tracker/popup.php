@@ -11,4 +11,4 @@ $body_vars = array(
 	'user_guid' => elgg_get_logged_in_user_guid(),
 );
 
-echo elgg_view_form('comment_tracker/subscribe', $form_vars = array(), $body_vars);
+echo elgg_view_form('comment_tracker/manage', $form_vars = array(), $body_vars);

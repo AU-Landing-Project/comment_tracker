@@ -212,3 +212,26 @@ function comment_tracker_get_user_subscriptions($user_guid, $target_guid) {
 function comment_tracker_has_subscribed($user_guid, $method, $entity_guid) {
 	return check_entity_relationship($user_guid, "notify{$method}", $entity_guid);
 }
+
+/**
+ * Set default notification settings for content followed by the user
+ * 
+ * @param array $methods   Array of methods e.g. "email, site, sms"
+ * @param int   $user_guid
+ * @return boolean
+ */
+function comment_tracker_set_user_notification_methods (array $methods, $user_guid) {
+	$methods = serialize($methods);
+	return elgg_set_plugin_user_setting('notification_methods', $methods, $user_guid, 'comment_tracker');
+}
+
+/**
+ * Get default notification settings for content followed by the user
+ * 
+ * @param int $user_guid
+ * @return array $methods Array of methods e.g. "email, site, sms"
+ */
+function comment_tracker_get_user_notification_methods ($user_guid) {
+	$methods = elgg_get_plugin_user_setting('notification_methods', $user_guid, 'comment_tracker');
+	return unserialize($methods);
+}

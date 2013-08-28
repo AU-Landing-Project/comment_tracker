@@ -25,6 +25,7 @@ function comment_tracker_init() {
 
 	// Register actions
 	$actions_path = elgg_get_plugins_path() . "comment_tracker/actions/comment_tracker/";
+	elgg_register_action("comment_tracker/manage", $actions_path . 'manage.php');
 	elgg_register_action("comment_tracker/subscribe", $actions_path . 'subscribe.php');
 
 	// Register plugin hooks

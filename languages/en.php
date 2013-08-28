@@ -13,11 +13,9 @@ return array(
 	'comment_tracker:notification:settings:linktext' => 'View all items to which you are subscribed',
 	'comment_tracker:subscriptions' => 'Subscriptions',
 	'comment_tracker:subscriptions:none' => 'No current subscriptions',
-	'comment_tracker:subscribe:tooltip' => 'Subscribe to receive notifications when comments are made on this content',
-	'allow:comment:notification' => 'Do you want to enable notification? ',
-	'email:content:type' => 'Do you want to support HTML Email? ',
-	'text:email' => 'No',
-	'html:email' => 'Yes',
+	'comment_tracker:subscribe:tooltip' => 'Receive notifications when comments are made on this content',
+	'comment_tracker:subscribtion_settings:tooltip' => 'Manage notification settings for this content',
+	'comment_tracker:notifications:enable' => 'Do you want to enable notification? ',
 
 	// Subscriptions
 	'comment_tracker:subscribe' => 'Subscribe',
@@ -35,9 +33,12 @@ return array(
 	'comment_tracker:unsubscribe:failed' => "Sorry! You couldn't unsubscribe from this post or topic.",
 	'comment_tracker:unsubscribe:not:valid:url' => 'Sorry! This is not a valid url to unsubscribe from this post or topic.',
 	'comment_tracker:unsubscribe:entity:not:access' => "Sorry! we couldn't find the post or topic.",
+
 	// New strings that may replace the old ones
 	'comment_tracker:subscribtion:success' => 'Subscription settings saved successfully',
 	'comment_tracker:subscribtion:failed' => 'There was an error saving your subscribtion settings',
+	'comment_tracker:error:no_methods' => "You haven't defined notification settings for comment notifications. You can add them %s at the end of the page.",
+	'comment_tracker:error:no_methods:link' => 'here',
 
 	'comment_tracker:setting:show_button' => "Show subscribe/unsubscribe button above comments view?",
 	'comment_tracker:item' => "item",
@@ -73,4 +74,8 @@ You have received this notification because you have subscribed to it, or are in
 
 You can change your notification settings here:
 %s',
+
+	// Admin panel
+	'admin:comment_tracker' => 'Comment tracker',
+	'admin:comment_tracker:upgrade' => 'Upgrades',
 );
