@@ -56,10 +56,10 @@ function comment_tracker_notify($annotation, $ann_user, $params = array()) {
 	
 	$entity = get_entity($annotation->entity_guid);
 	
-	if ($entity instanceof ElggObject) {
+	if (elgg_instanceof($entity, 'object')) {
         
 		$container = get_entity($entity->container_guid);
-		if ($entity->getSubtype() == 'groupforumtopic') {
+		if (elgg_instanceof($entity, 'object', 'groupforumtopic')) {
             $subject = elgg_echo('comment:notify:subject:groupforumtopic', array(
                 $ann_user->name,
                 $entity->title,
@@ -79,29 +79,55 @@ function comment_tracker_notify($annotation, $ann_user, $params = array()) {
             
             // construct subject for an entity
             if (elgg_instanceof($container, 'group')) {
-                $subject = elgg_echo('comment:notify:subject:comment:group', array(
-                    $ann_user->name,
-                    $content_type,
-                    $entity->title ? $entity->title : $entity->name,
-                    $container->name                    
-                ));
+				// see if we have a specific language string first
+				// if not fall back to a generic one
+				$key = 'comment:notify:subject:' . $entity->getSubtype() . ':group';
+				if (elgg_echo($key) != $key) {
+					// we have a specific subject
+					$subject = elgg_echo($key, array(
+						$ann_user->name,
+						$entity->title ? $entity->title : $entity->name,
+						$container->name                    
+					));
+				}
+				else {
+					// we don't have a specific subject, use generic
+					$subject = elgg_echo('comment:notify:subject:comment:group', array(
+						$ann_user->name,
+						$content_type,
+						$entity->title ? $entity->title : $entity->name,
+						$container->name                    
+					));
+				}
             }
             else {
-                $subject = elgg_echo('comment:notify:subject:comment', array(
-                    $ann_user->name,
-                    $content_type,
-                    $entity->title ? $entity->title : $entity->name
-                ));
+				// see if we have a specific language string first
+				// if not fall back to a generic one
+				$key = 'comment:notify:subject:' . $entity->getSubtype();
+				if (elgg_echo($key) != $key) {
+					$subject = elgg_echo($key, array(
+						$ann_user->name,
+						$content_type,
+						$entity->title ? $entity->title : $entity->name
+					));
+				}
+				else {
+					$subject = elgg_echo('comment:notify:subject:comment', array(
+						$ann_user->name,
+						$content_type,
+						$entity->title ? $entity->title : $entity->name
+					));	
+				}
             }
         }
 		
 		$entity_link = elgg_view('output/url', array(
-			'url' => $entity->getUrl(),
+			'href' => $entity->getUrl(),
 			'text' => $entity->title,
 		));
 		
 		$commenter_link = elgg_view('output/url', array(
-			'url' => $ann_user->getUrl(),
+			'href' => $ann_user->getUrl(),
 			'text' => $ann_user->name,
 		));
 		
