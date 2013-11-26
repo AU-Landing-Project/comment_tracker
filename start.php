@@ -38,6 +38,7 @@ function comment_tracker_init() {
 	
 	if ($notify_owner == 'yes') {
 		elgg_register_action("comments/add", elgg_get_plugins_path() . "comment_tracker/actions/comment.php");
+		elgg_unregister_event_handler('create', 'annotation', 'discussion_reply_notifications');
 	}
 
 	// plugin hooks
