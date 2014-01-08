@@ -70,6 +70,8 @@ function comment_tracker_page_handler($page) {
 	
 	// display subscribed items
 	$content = elgg_list_entities_from_relationship(array(
+		'type' => 'object',
+		'subtypes' => comment_tracker_get_entity_subtypes(),
 		'relationship_guid' => $user->guid,
 		'relationship' => COMMENT_TRACKER_RELATIONSHIP,
 		'full_view' => false,
