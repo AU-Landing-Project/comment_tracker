@@ -11,7 +11,10 @@
  * updated to 1.8 by Matt Beckett
  */
 
-global $NOTIFICATION_HANDLERS, $CONFIG;
+global $CONFIG;
+
+$notification_handlers = _elgg_services()->notifications->getMethodsAsDeprecatedGlobal();
+ 
 $user = $vars['user'];
 $view_all_link = elgg_view('output/url', array(
 		'text' => elgg_echo('comment:notification:settings:linktext'),
@@ -42,7 +45,7 @@ echo elgg_view_module('info', elgg_echo('comment:notification:settings'), $body)
 					<td>&nbsp;</td>
 				<?php
 				$i = 0; 
-				foreach($NOTIFICATION_HANDLERS as $method => $foo)
+				foreach($notification_handlers as $method => $foo)
 				{
 					if ($i > 0)
 					{
@@ -59,7 +62,7 @@ echo elgg_view_module('info', elgg_echo('comment:notification:settings'), $body)
 			<?php	
 			$fields = '';
 			$i = 0;
-			foreach($NOTIFICATION_HANDLERS as $method => $foo)
+			foreach($notification_handlers as $method => $foo)
 			{
 				if (!check_entity_relationship($user->guid, 'block_comment_notify' . $method, $CONFIG->site_guid))
 				{
