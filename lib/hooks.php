@@ -46,8 +46,8 @@ function comment_tracker_savesettings($hook, $type, $return, $params) {
         return $return;
     }
     
-	global $NOTIFICATION_HANDLERS;
-	foreach($NOTIFICATION_HANDLERS as $method => $foo) {
+	$notification_handlers = _elgg_services()->notifications->getMethodsAsDeprecatedGlobal();
+	foreach($notification_handlers as $method => $foo) {
 		$subscriptions[$method] = get_input($method.'commentsubscriptions');
 		
 		if (!empty($subscriptions[$method])) {
