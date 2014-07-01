@@ -28,9 +28,10 @@ function comment_tracker_init() {
 
 	// Extend views
 	elgg_extend_view('css/elgg', 'comment_tracker/css');
-	elgg_extend_view('js/elgg', 'comment_tracker/js', 1000);
 	elgg_extend_view('notifications/subscriptions/forminternals', 'comment_tracker/settings');
-	
+
+	elgg_require_js('comment_tracker/subscribe');
+
 	// Register actions
 	elgg_register_action("comment_tracker/subscribe", elgg_get_plugins_path() . "comment_tracker/actions/subscribe.php");
 	
