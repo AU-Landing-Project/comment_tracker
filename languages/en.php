@@ -42,105 +42,27 @@
         'comment:notify:subject:groupforumtopic' => '%s added to the discussion %s in the group %s',
         'comment:notify:subject:comment' => '%s commented on the %s "%s"',
         'comment:notify:subject:comment:group' => '%s commented on the %s "%s" in the group %s',
-        
-        
-        /* Legacy stuff - @TODO - see what's safe to delete */
-		'comment:notify:subject' => 'There is a new comment on %s',
-		'comment:notify:group:subject' => 'There is a new post in the thread %s',
-		'comment:notify:body:web' => 'Hi %s,
-<br/>There is a new comment on %s
-<br/>%s wrote: %s
-<br/>%s
-<br/>
-<font color="#888888" size="2">
-You have received this notification because you have subscribed to it, or are involved in it.<br/>
-To change your notification preferences, please click here: %s<br/>
-</font>
-		',
-			'comment:notify:group:body:web' => 'Hi %s,
-<br/>There is a new post in the thread %s
-<br/>%s wrote: %s
-<br/>%s
-<br/>
-<font color="#888888" size="2">
-You have received this notification because you have subscribed to it, or are involved in it.<br/>
-To change your notification preferences, please click here: %s<br/>
-</font>
-		',
-		'comment:notify:body:email:text' => 'Hi %s,
 
-There is a new comment on %s
-
-%s wrote: %s
-
-%s
-
-Regards,
-%s
-
-_________________________________________________________________________________
-<font color="#888888" size="2">
-Please note you may have to login before viewing the post or topic.
-
-You have received this notification because you have subscribed to it, or are involved in it.
-
-To change your notification preferences for all such messages, please click here: %s
-</font>
-		',
-			'comment:notify:group:body:email:text' => 'Hi %s,
-
-There is a new post in the thread %s
-
-%s wrote: %s
-
-%s
-
-Regards,
-%s
-
-_________________________________________________________________________________
-<font color="#888888" size="2">
-Please note you may have to login before viewing the post or topic.
-
-You have received this notification because you have subscribed to it, or are involved in it.
-
-To change your notification preferences for all such messages, please click here: %s
-</font>
-		',
-	
-	'comment:notify:body:email:html' => '
-<div>
-	<div>Hi %s,</div>
-	<div>There is a new comment on %s</div>
-	<div>%s wrote: %s</div>
-	<div>%s</div>
-	<div>&nbsp;</div>
-	<div>Regards,</div></div>
-	<div>%s</div>
-	<div>&nbsp;</div>
-	<div style="border-top:1px solid #CCCCCC;color:#888888;">
-		<div>Please note you may have to login before viewing the post or topic.</div>
-		<div>You have received this notification because you have subscribed to it, or are involved in it.</div>
-		<div>To change your notification preferences for all such messages, please click here: %s</div>
-	</div>
-</div>
-		',
-			'comment:notify:group:body:email:html' => '
-<div>
-	<div>Hi %s,</div>
-	<div>There is a new post in the thread %s</div>
-	<div>%s wrote: %s</div>
-	<div>%s</div>
-	<div>&nbsp;</div>
-	<div>Regards,</div>
-	<div>%s</div>
-	<div style="border-top:1px solid #CCCCCC;color:#888888;">
-		<div>Please note you may have to login before viewing the post or topic.</div>
-		<div>You have received this notification because you have subscribed to it, or are involved in it.</div>
-		<div>To change your notification preferences for all such messages, please click here: %s</div>
-	</div>
-</div>
-		',
+		'comment:notify:subject:blog' => '%s commented on the blog "%s"',
+		'comment:notify:subject:blog:group' => '%s commented on the blog "%s" in the group %s',
+		'comment:notify:subject:bookmarks' => '%s commented on the bookmark "%s"',
+		'comment:notify:subject:bookmarks:group' => '%s commented on the bookmark "%s" in the group %s',
+		'comment:notify:subject:file' => '%s commented on the file "%s"',
+		'comment:notify:subject:file:group' => '%s commented on the file "%s" in the group %s',
+		'comment:notify:subject:event' => '%s commented on the event "%s"',
+		'comment:notify:subject:event:group' => '%s commented on the event "%s" in the group %s',
+		'comment:notify:subject:page' => '%s commented on the page "%s"',
+		'comment:notify:subject:page:group' => '%s commented on the page "%s" in the group %s',
+		'comment:notify:subject:page_top' => '%s commented on the page "%s"',
+		'comment:notify:subject:page_top:group' => '%s commented on the page "%s" in the group %s',
+		'comment:notify:subject:poll' => '%s commented on the poll "%s"',
+		'comment:notify:subject:poll:group' => '%s commented on the poll "%s" in the group %s',
+		'comment:notify:subject:album' => '%s commented on the album "%s"',
+		'comment:notify:subject:album:group' => '%s commented on the album "%s" in the group %s',
+		'comment:notify:subject:image' => '%s commented on the image "%s"',
+		'comment:notify:subject:image:group' => '%s commented on the image "%s" in the group %s',
+		'comment:notify:subject:sharemaps' => '%s commented on the map "%s"',
+		'comment:notify:subject:sharemaps:group' => '%s commented on the map "%s in the group %s"',
 	);
 					
 add_translation("en",$english);
