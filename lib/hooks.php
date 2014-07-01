@@ -61,3 +61,63 @@ function comment_tracker_savesettings($hook, $type, $return, $params) {
     $autosubscribe = get_input('comment_tracker_autosubscribe');
     elgg_set_plugin_user_setting('comment_tracker_autosubscribe', $autosubscribe, $user->guid, 'comment_tracker');
 }
+
+/**
+ * Prepare a notification message about a new comment
+ *
+ * @param  string                          $hook         Hook name
+ * @param  string                          $type         Hook type
+ * @param  Elgg_Notifications_Notification $notification The notification to prepare
+ * @param  array                           $params       Hook parameters
+ * @return Elgg_Notifications_Notification
+ */
+function comment_tracker_prepare_notification($hook, $type, $notification, $params) {
+	$object = $params['event']->getObject();
+	$entity = $object->getContainerEntity();
+	$container = $entity->getContainerEntity();
+
+	$actor = $params['event']->getActor();
+	$recipient = $params['recipient'];
+	$language = $params['language'];
+	$method = $params['method'];
+
+	$type_string = "item:object:{$entity->getSubtype()}";
+    $content_type = elgg_echo($type_string);
+
+	// If no translation was found fall back to generic one
+	if ($content_type == $type_string) {
+		$content_type = elgg_echo('comment_tracker:item');
+	}
+
+	// Notification subject parameters
+	$params = array(
+		$actor->name,
+		$content_type,
+		$entity->getDisplayName(),
+	);
+
+	if (elgg_instanceof($container, 'group')) {
+		// Use version "...in the group <group name>"
+		$params[] = $container->getDisplayName();
+		$subject_string = 'comment_tracker:notify:subject:group';
+	} else {
+		$subject_string = 'comment_tracker:notify:subject';
+	}
+
+	// "<user> commented on the <content type> <content title> [in the group <group name>]"
+	$notification->subject = elgg_echo($subject_string, $params, $language);
+
+	$notify_settings_link = elgg_get_site_url() . "notifications/personal/{$recipient->username}";
+
+ 	$notification->body = elgg_echo('comment_tracker:notify:body', array(
+ 		$recipient->name,
+		$entity->title,
+		$actor->name,
+		elgg_get_excerpt($object->description),
+		$entity->getURL(),
+		$notify_settings_link,
+	), $language);
+	$notification->summary = "river:comment:{$entity->getType()}:{$entity->getSubtype()}";
+
+	return $notification;
+}
