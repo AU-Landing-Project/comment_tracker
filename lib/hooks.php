@@ -121,3 +121,87 @@ function comment_tracker_prepare_notification($hook, $type, $notification, $para
 
 	return $notification;
 }
+
+/**
+ * Get comment_tracker subscriptions for an entity
+ *
+ * The return array is of the form:
+ *
+ * array(
+ *     <user guid> => array('email', 'sms', 'ajax'),
+ * );
+ *
+ * @param string $hook          'get'
+ * @param string $type          'subscription'
+ * @param array  $subscriptions Array of subscriptions
+ * @param array  $params        Array ('event' => Elgg_Notifications_Event)
+ * @return array $subscriptions Array of subscriptions
+ */
+function comment_tracker_get_subscriptions($hook, $type, $subscriptions, $params) {
+	$event = $params['event'];
+
+	// We want to send notification only when a comment is created, not when it's updated
+	if ($event->getAction() !== 'create') {
+		return $subscriptions;
+	}
+
+	// Send notifications only if the created entity is a comment
+	if (!$event->getObject() instanceof ElggComment) {
+		return $subscriptions;
+	}
+
+	// GUID of the entity that was commented
+	$container_guid = $event->getObject()->getContainerGUID();
+
+	// Get users that have subscribed to this entity
+	// TODO Use ElggBatch?
+	$users = elgg_get_entities_from_relationship(array(
+		'type' => 'user',
+		'relationship_guid' => $container_guid,
+		'relationship' => COMMENT_TRACKER_RELATIONSHIP,
+		'inverse_relationship' => true,
+		'limit' => false,
+	));
+
+	// Get a comma separated list of the subscribed users
+	$user_guids = array();
+	foreach ($users as $user) {
+		$user_guids[$user->guid] = $user->guid;
+	}
+	$user_guids = implode(', ', $user_guids);
+
+	$dbprefix = elgg_get_config('dbprefix');
+	$site_guid = elgg_get_site_entity()->guid;
+
+	// Get relationships that are used to explicitly block specific notification methods
+	$blocked_relationships = get_data(
+		"SELECT * FROM {$dbprefix}entity_relationships " .
+		"WHERE relationship LIKE 'block_comment_notify%' " .
+		"AND guid_one IN ($user_guids) " .
+		"AND guid_two = $site_guid");
+
+	// Get the methods from the relationship names
+	$blocked_methods = array();
+	foreach ($blocked_relationships as $row) {
+		$method = str_replace('block_comment_notify', '', $row->relationship);
+		$blocked_methods[$row->guid_one][] = $method;
+	}
+
+	$handlers = _elgg_services()->notifications->getMethods();
+
+	foreach ($users as $user) {
+		// All available notification methods on the site
+		$methods = $handlers;
+
+		// Remove the notification methods that user has explicitly blocked
+		if (isset($blocked_methods[$user->guid])) {
+			$methods = array_diff($methods, $blocked_methods[$user->guid]);
+		}
+
+		if ($methods) {
+			$subscriptions[$user->guid] = $methods;
+		}
+	}
+
+	return $subscriptions;
+}
