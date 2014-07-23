@@ -49,6 +49,11 @@ function comment_tracker_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'comment_tracker_entity_menu');
 	// prepare the notification message
 	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:comment', 'comment_tracker_prepare_notification');
+	// get subscriptions for a commented entity
+	elgg_register_plugin_hook_handler('get', 'subscriptions', 'comment_tracker_get_subscriptions');
+
+	// Set core notifications system to track the creation of new comments
+	elgg_register_notification_event('object', 'comment', array('create'));
 
 	// register events
 	elgg_register_event_handler('create', 'annotation','comment_tracker_notifications');
