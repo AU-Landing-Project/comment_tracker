@@ -117,7 +117,9 @@ function comment_tracker_prepare_notification($hook, $type, $notification, $para
 		$entity->getURL(),
 		$notify_settings_link,
 	), $language);
-	$notification->summary = "river:comment:{$entity->getType()}:{$entity->getSubtype()}";
+
+	$params = array($actor->name, $entity->getDisplayName());
+	$notification->summary = elgg_echo("river:comment:{$entity->getType()}:{$entity->getSubtype()}", $params, $language);
 
 	return $notification;
 }
