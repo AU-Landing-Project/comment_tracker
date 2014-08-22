@@ -1,75 +1,108 @@
 <?php
 
+/**
+ * Add subscribe/unsuncribe link to entity menu
+ *
+ * @param string         $hook   'register'
+ * @param string         $type   'menu:enity'
+ * @param ElggMenuItem[] $return The current menu items
+ * @param array          $params Array of parameters
+ * @return ElggMenuItem[]
+ */
 function comment_tracker_entity_menu($hook, $type, $return, $params) {
-	if (!elgg_is_logged_in() || elgg_in_context('widget') || !elgg_instanceof($params['entity'], 'object')) {
+	// Only logged in users can subscribe
+	if (!elgg_is_logged_in()) {
 		return $return;
 	}
-	
-	$notify_user = elgg_get_plugin_setting('notify_owner', 'comment_tracker');
-	
-	if (($notify_user != 'yes') && (elgg_get_logged_in_user_guid() == $params['entity']->owner_guid)) {
+
+	// Entity menu is not displayed in widgets
+	if (elgg_in_context('widgets')) {
 		return $return;
 	}
-		
-        $subscription_subtypes = comment_tracker_get_entity_subtypes();
-		
-		if (in_array($params['entity']->getSubtype(), $subscription_subtypes)) {
-		  $text = '<span data-guid="' . $params['entity']->guid . '">';
-		  if (comment_tracker_is_subscribed(elgg_get_logged_in_user_entity(), $params['entity'])) {
-				$text .= elgg_echo('comment:unsubscribe');
-		  } else {
-			  $text .= elgg_echo('comment:subscribe');
-		  }
-		  $text .= '</span>';
-		
-		  $item = new ElggMenuItem('comment_tracker', $text, '#');
-		  $item->setTooltip(elgg_echo('comment:subscribe:tooltip'));
-		  $item->setLinkClass("comment-tracker-toggle");
-		  $item->setPriority(150);
-		
-		  $return[] = $item;
+
+	if (!$params['entity'] instanceof ElggObject) {
+		return $return;
+	}
+
+	$entity = $params['entity'];
+
+	$user = elgg_get_logged_in_user_entity();
+
+	// Use comment tracker to notify also the owner if explicitly told so
+	if ($user->guid == $entity->owner_guid) {
+		$notify_user = elgg_get_plugin_setting('notify_owner', 'comment_tracker');
+
+		if ($notify_user != 'yes') {
+			return $return;
 		}
-	
+	}
+
+	$subscription_subtypes = comment_tracker_get_entity_subtypes();
+
+	if (in_array($entity->getSubtype(), $subscription_subtypes)) {
+
+		if (comment_tracker_is_subscribed($user, $entity)) {
+			$text = elgg_echo('comment:unsubscribe');
+		} else {
+			$text = elgg_echo('comment:subscribe');
+		}
+		$text = "<span data-guid=\"{$entity->guid}\">$text</span>";
+
+		$item = new ElggMenuItem('comment_tracker', $text, '#');
+		$item->setTooltip(elgg_echo('comment:subscribe:tooltip'));
+		$item->setLinkClass("comment-tracker-toggle");
+		$item->setPriority(150);
+
+		$return[] = $item;
+	}
+
 	return $return;
 }
 
-/*
- * called on the notification settings save action
- * save our settings
+/**
+ * Save personal notification settings
+ *
+ * @param string $hook  'action'
+ * @param string $type  'notificationsettings/save'
+ * @param bool   $return True by default
+ * @param null   $params
+ * @return void
  */
 function comment_tracker_savesettings($hook, $type, $return, $params) {
-    
-    $guid = get_input('guid');
-    $user = get_user($guid);
-    
-    if (!elgg_instanceof($user, 'user')) {
-        return $return;
-    }
-    
+
+	$guid = get_input('guid');
+	$user = get_user($guid);
+
+	if (!$user instanceof ElggUser) {
+		return $return;
+	}
+
+	$site = elgg_get_site_entity();
+
 	$notification_handlers = _elgg_services()->notifications->getMethodsAsDeprecatedGlobal();
-	foreach($notification_handlers as $method => $foo) {
+	foreach ($notification_handlers as $method => $foo) {
 		$subscriptions[$method] = get_input($method.'commentsubscriptions');
-		
+
 		if (!empty($subscriptions[$method])) {
-			remove_entity_relationship($user->guid, 'block_comment_notify'.$method, elgg_get_site_entity()->guid);
+			remove_entity_relationship($user->guid, 'block_comment_notify'.$method, $site->guid);
 		} else {
-			add_entity_relationship($user->guid, 'block_comment_notify'.$method, elgg_get_site_entity()->guid);
+			add_entity_relationship($user->guid, 'block_comment_notify'.$method, $site->guid);
 		}
 	}
-    
-    // save autosubscribe settings
-    $autosubscribe = get_input('comment_tracker_autosubscribe');
-    elgg_set_plugin_user_setting('comment_tracker_autosubscribe', $autosubscribe, $user->guid, 'comment_tracker');
+
+	// save autosubscribe settings
+	$autosubscribe = get_input('comment_tracker_autosubscribe');
+	elgg_set_plugin_user_setting('comment_tracker_autosubscribe', $autosubscribe, $user->guid, 'comment_tracker');
 }
 
 /**
  * Prepare a notification message about a new comment
  *
- * @param  string                          $hook         Hook name
- * @param  string                          $type         Hook type
- * @param  Elgg_Notifications_Notification $notification The notification to prepare
- * @param  array                           $params       Hook parameters
- * @return Elgg_Notifications_Notification
+ * @param  string $hook         Hook name
+ * @param  string $type         Hook type
+ * @param  object $notification The notification to prepare
+ * @param  array  $params       Hook parameters
+ * @return object
  */
 function comment_tracker_prepare_notification($hook, $type, $notification, $params) {
 	$object = $params['event']->getObject();
@@ -82,7 +115,7 @@ function comment_tracker_prepare_notification($hook, $type, $notification, $para
 	$method = $params['method'];
 
 	$type_string = "item:object:{$entity->getSubtype()}";
-    $content_type = elgg_echo($type_string);
+	$content_type = elgg_echo($type_string);
 
 	// If no translation was found fall back to generic one
 	if ($content_type == $type_string) {
