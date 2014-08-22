@@ -165,6 +165,10 @@ function comment_tracker_get_subscriptions($hook, $type, $subscriptions, $params
 		'limit' => false,
 	));
 
+	if (!$users) {
+		return $subscriptions;
+	}
+
 	// Get a comma separated list of the subscribed users
 	$user_guids = array();
 	foreach ($users as $user) {
