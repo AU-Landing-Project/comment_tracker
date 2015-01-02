@@ -37,6 +37,22 @@ return array(
 	'comment:notify:subject:comment' => '%s commented on the %s "%s"',
 	'comment:notify:subject:comment:group' => '%s commented on the %s "%s" in the group %s',
 
+	'comment_tracker:notify:body' => "Hi %s
+
+There's a new comment on \"%s\".
+
+%s wrote:
+\"%s\"
+
+You can answer to the post here:
+%s
+
+
+--
+You reveived this email because you have subscribed to get notifications about new comments. You can change your notification settings here:
+%s
+",
+
 	'comment:notify:subject:blog' => '%s commented on the blog "%s"',
 	'comment:notify:subject:blog:group' => '%s commented on the blog "%s" in the group %s',
 	'comment:notify:subject:bookmarks' => '%s commented on the bookmark "%s"',

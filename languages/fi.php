@@ -37,6 +37,22 @@ return array(
 	'comment:notify:subject:comment' => '%s kommentoi %s "%s"',
 	'comment:notify:subject:comment:group' => '%s kommentoi %s "%s" ryhmässä %s',
 
+	'comment_tracker:notify:body' => "Hei %s
+
+Kohteessa \"%s\" on uusi kommentti.
+
+%s kirjoitti:
+\"%s\"
+
+Voit vastata kommenttiin täällä:
+%s
+
+
+--
+Sait tämän viestin, koska olet tilannut ilmoitukset uusista kommenteista. Voit muuttaa ilmoitusasetuksiasi täällä:
+%s
+",
+
 	'comment:notify:subject:blog' => '%s kommentoi blogia "%s"',
 	'comment:notify:subject:blog:group' => '%s kommentoi blogia "%s" ryhmässä %s',
 	'comment:notify:subject:bookmarks' => '%s kommentoi kirjanmerkkiä "%s"',
