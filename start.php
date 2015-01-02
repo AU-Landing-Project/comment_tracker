@@ -47,7 +47,6 @@ function comment_tracker_init() {
 	elgg_register_notification_event('object', 'comment', array('create'));
 
 	// register events
-	elgg_register_event_handler('create', 'annotation','comment_tracker_notifications');
 	elgg_register_event_handler('create', 'object', 'comment_tracker_object_creation');
 
 	// set up our pages
