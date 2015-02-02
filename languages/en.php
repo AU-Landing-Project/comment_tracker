@@ -33,9 +33,8 @@ return array(
 	'comment_tracker:item' => "item",
 	'comment_tracker:setting:notify_owner' => "Let comment tracker handle owner notifications?",
 
-	'comment:notify:subject:groupforumtopic' => '%s added to the discussion %s in the group %s',
-	'comment:notify:subject:comment' => '%s commented on the %s "%s"',
-	'comment:notify:subject:comment:group' => '%s commented on the %s "%s" in the group %s',
+	'comment_tracker:notify:subject' => '%s commented on the %s "%s"',
+	'comment_tracker:notify:subject:group' => '%s commented on the %s "%s" in the group %s',
 
 	'comment_tracker:notify:body' => "Hi %s
 
@@ -52,25 +51,4 @@ You can answer to the post here:
 You reveived this email because you have subscribed to get notifications about new comments. You can change your notification settings here:
 %s
 ",
-
-	'comment:notify:subject:blog' => '%s commented on the blog "%s"',
-	'comment:notify:subject:blog:group' => '%s commented on the blog "%s" in the group %s',
-	'comment:notify:subject:bookmarks' => '%s commented on the bookmark "%s"',
-	'comment:notify:subject:bookmarks:group' => '%s commented on the bookmark "%s" in the group %s',
-	'comment:notify:subject:file' => '%s commented on the file "%s"',
-	'comment:notify:subject:file:group' => '%s commented on the file "%s" in the group %s',
-	'comment:notify:subject:event' => '%s commented on the event "%s"',
-	'comment:notify:subject:event:group' => '%s commented on the event "%s" in the group %s',
-	'comment:notify:subject:page' => '%s commented on the page "%s"',
-	'comment:notify:subject:page:group' => '%s commented on the page "%s" in the group %s',
-	'comment:notify:subject:page_top' => '%s commented on the page "%s"',
-	'comment:notify:subject:page_top:group' => '%s commented on the page "%s" in the group %s',
-	'comment:notify:subject:poll' => '%s commented on the poll "%s"',
-	'comment:notify:subject:poll:group' => '%s commented on the poll "%s" in the group %s',
-	'comment:notify:subject:album' => '%s commented on the album "%s"',
-	'comment:notify:subject:album:group' => '%s commented on the album "%s" in the group %s',
-	'comment:notify:subject:image' => '%s commented on the image "%s"',
-	'comment:notify:subject:image:group' => '%s commented on the image "%s" in the group %s',
-	'comment:notify:subject:sharemaps' => '%s commented on the map "%s"',
-	'comment:notify:subject:sharemaps:group' => '%s commented on the map "%s in the group %s"',
 );

@@ -33,9 +33,8 @@ return array(
 	'comment_tracker:item' => "kohde",
 	'comment_tracker:setting:notify_owner' => "Lähetä myös käyttäjän omat ilmoitukset comment_trackerin kautta?",
 
-	'comment:notify:subject:groupforumtopic' => '%s vastasi keskusteluun %s ryhmässä %s',
-	'comment:notify:subject:comment' => '%s kommentoi %s "%s"',
-	'comment:notify:subject:comment:group' => '%s kommentoi %s "%s" ryhmässä %s',
+	'comment_tracker:notify:subject' => '%s kommentoi kohdetta "%3$s"',
+	'comment_tracker:notify:subject:group' => '%s kommentoi kohdetta "%3$s" ryhmässä "%4$s"',
 
 	'comment_tracker:notify:body' => "Hei %s
 
@@ -52,25 +51,4 @@ Voit vastata kommenttiin täällä:
 Sait tämän viestin, koska olet tilannut ilmoitukset uusista kommenteista. Voit muuttaa ilmoitusasetuksiasi täällä:
 %s
 ",
-
-	'comment:notify:subject:blog' => '%s kommentoi blogia "%s"',
-	'comment:notify:subject:blog:group' => '%s kommentoi blogia "%s" ryhmässä %s',
-	'comment:notify:subject:bookmarks' => '%s kommentoi kirjanmerkkiä "%s"',
-	'comment:notify:subject:bookmarks:group' => '%s kommentoi kirjanmerkkiä "%s" ryhmässä %s',
-	'comment:notify:subject:file' => '%s kommentoi tiedostoa "%s"',
-	'comment:notify:subject:file:group' => '%s kommentoi tiedostoa "%s" ryhmässä %s',
-	'comment:notify:subject:event' => '%s kommentoi tapahtumaa "%s"',
-	'comment:notify:subject:event:group' => '%s kommentoi tapahtumaa "%s" ryhmässä %s',
-	'comment:notify:subject:page' => '%s kommentoi sivua "%s"',
-	'comment:notify:subject:page:group' => '%s kommentoi sivua "%s" ryhmässä %s',
-	'comment:notify:subject:page_top' => '%s kommentoi sivua "%s"',
-	'comment:notify:subject:page_top:group' => '%s kommentoi sivua "%s" ryhmässä %s',
-	'comment:notify:subject:poll' => '%s kommentoi kyselyä "%s"',
-	'comment:notify:subject:poll:group' => '%s kommentoi kyselyä "%s" ryhmässä %s',
-	'comment:notify:subject:album' => '%s kommentoi albumia "%s"',
-	'comment:notify:subject:album:group' => '%s kommentoi albumia "%s" ryhmässä %s',
-	'comment:notify:subject:image' => '%s kommentoi kuvaa "%s"',
-	'comment:notify:subject:image:group' => '%s kommentoi kuvaa "%s" ryhmässä %s',
-	'comment:notify:subject:sharemaps' => '%s kommentoi karttaa "%s"',
-	'comment:notify:subject:sharemaps:group' => '%s kommentoi karttaa "%s ryhmässä %s"',
 );
