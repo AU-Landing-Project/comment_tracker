@@ -1,17 +1,10 @@
 <?php
 
 /**
- * Automatically subscribe user to a thread when they like or comment on it. Also
- * subscribe content-creators to their own content.
+ * Automatically subscribe user to a thread when they like or comment on it.
  *
  * Auto-subscribe is not done if user has specifically unsubscribed from
  * the specific thread.
- *
- * By default content owners receive personal notifications based on the
- * notification settings provided by Elgg core. Comment tracker provides
- * a site-wide setting that allows it to be used as alternate subscription
- * method. If the setting is enabled, this handler takes care of subscribing
- * the owner to receive the notifications through comment tracker.
  *
  * @param string                    $event  'create'
  * @param string                    $type   'object'|'annotation'
@@ -22,27 +15,6 @@
  */
 function comment_tracker_auto_subscribe($event, $type, $object) {
 	if (!elgg_is_logged_in()) {
-		return true;
-	}
-
-	// handling this case first for readability
-	if ($object instanceof ElggObject && !($object instanceof ElggComment)) {
-		// new content object, try to subscribe the user to her own object
-
-		$notify_owner = elgg_get_plugin_setting('notify_owner', 'comment_tracker');
-
-		if ($notify_owner !== 'yes') {
-			// Comment tracker isn't configured to do this
-			return true;
-		}
-
-		if (!in_array($object->getSubtype(), comment_tracker_get_entity_subtypes())) {
-			// Comment tracker does not currently support this content type
-			return true;
-		}
-
-		$owner = $object->getOwnerEntity();
-		comment_tracker_subscribe($owner->guid, $object->guid);
 		return true;
 	}
 
