@@ -30,6 +30,8 @@ return array(
 	'comment:unsubscribe:not:valid:url' => 'Sorry! This is not a valid url to unsubscribe from this post or topic.',
 	'comment:unsubscribe:entity:not:access' => "Sorry! we couldn't find the post or topic.",
 	'comment_tracker:setting:show_button' => "Show subscribe/unsubscribe button above comments view? ",
+	'comment_tracker:setting:show_entity_button' => "Show subscribe/unsubscribe button in entity menus?",
+	'comment_tracker:setting:show_river_button' => "Show subscribe/unsubscribe button in river item menus?",
 	'comment_tracker:item' => "item",
 	'comment_tracker:setting:notify_owner' => "Let comment tracker handle owner notifications?",
 

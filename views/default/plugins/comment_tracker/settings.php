@@ -16,7 +16,7 @@ if (!$email_content_type) {
 ?>
 <p style="margin-bottom:10px;">
 	<?php
-		echo elgg_echo('allow:comment:notification');
+		echo elgg_echo('allow:comment:notification') . ' ';
 		echo elgg_view('input/dropdown', array(
 			'name' => 'params[allow_comment_notification]',
 			'options_values' => array(
@@ -44,7 +44,35 @@ if (!$email_content_type) {
 
 <p>
 	<?php
-		echo elgg_echo('comment_tracker:setting:show_button');
+	echo elgg_echo('comment_tracker:setting:show_entity_button') . ' ';
+	echo elgg_view('input/dropdown', array(
+		'name' => 'params[show_entity_button]',
+		'options_values' => array(
+			'yes' => elgg_echo('option:yes'),
+			'no' => elgg_echo('option:no')
+		),
+		'value' => $vars['entity']->show_entity_button ? $vars['entity']->show_entity_button : 'yes'
+	));
+	?>
+</p>
+
+<p>
+	<?php
+	echo elgg_echo('comment_tracker:setting:show_river_button') . ' ';
+	echo elgg_view('input/dropdown', array(
+		'name' => 'params[show_river_button]',
+		'options_values' => array(
+			'yes' => elgg_echo('option:yes'),
+			'no' => elgg_echo('option:no')
+		),
+		'value' => $vars['entity']->show_river_button ? $vars['entity']->show_river_button : 'no'
+	));
+	?>
+</p>
+
+<p>
+	<?php
+		echo elgg_echo('comment_tracker:setting:show_button') . ' ';
 		echo elgg_view('input/dropdown', array(
 			'name' => 'params[show_button]',
 			'options_values' => array(
