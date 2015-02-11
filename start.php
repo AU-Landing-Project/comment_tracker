@@ -46,8 +46,9 @@ function comment_tracker_init() {
 	// Set core notifications system to track the creation of new comments
 	elgg_register_notification_event('object', 'comment', array('create'));
 
-	// register events
-	elgg_register_event_handler('create', 'object', 'comment_tracker_subscribe_owner_automatically');
+	// handle auto-subscriptions
+	elgg_register_event_handler('create', 'object', 'comment_tracker_auto_subscribe');
+	elgg_register_event_handler('create', 'annotation', 'comment_tracker_auto_subscribe');
 
 	// set up our pages
 	elgg_register_page_handler('comment_tracker', 'comment_tracker_page_handler');
