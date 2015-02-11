@@ -1,60 +1,69 @@
 <?php
 
 /**
- * Add subscribe/unsuncribe link to entity menu
+ * Register entity/river menu item
  *
- * @param string         $hook   'register'
- * @param string         $type   'menu:enity'
- * @param ElggMenuItem[] $return The current menu items
- * @param array          $params Array of parameters
- * @return ElggMenuItem[]
+ * @param  string         $hook   'register'
+ * @param  string         $type   'menu:entity' or 'menu:river'
+ * @param  ElggMenuItem[] $return Array of ElggMenuItem objects
+ * @param  array          $params Menu view parameters
+ *
+ * @return ElggMenuItem[] Array of ElggMenuItem objects
  */
-function comment_tracker_entity_menu($hook, $type, $return, $params) {
-	// Only logged in users can subscribe
-	if (!elgg_is_logged_in()) {
-		return $return;
-	}
-
-	// Entity menu is not displayed in widgets
-	if (elgg_in_context('widgets')) {
-		return $return;
-	}
-
-	if (!$params['entity'] instanceof ElggObject) {
-		return $return;
-	}
-
-	$entity = $params['entity'];
-
+function comment_tracker_register_menus($hook, $type, $return, $params) {
 	$user = elgg_get_logged_in_user_entity();
+	if (!$user) {
+		return;
+	}
 
-	// Use comment tracker to notify also the owner if explicitly told so
-	if ($user->guid == $entity->owner_guid) {
-		$notify_user = elgg_get_plugin_setting('notify_owner', 'comment_tracker');
+	if ($type === 'menu:river') {
+		$river_item = $params['item'];
+		/** @var $river_item ElggRiverItem */
 
-		if ($notify_user != 'yes') {
-			return $return;
+		if ($river_item->type !== 'object') {
+			return;
 		}
+		if ($river_item->action_type === 'comment') {
+			$entity = $river_item->getTargetEntity();
+		} elseif ($river_item->action_type === 'create') {
+			$entity = $river_item->getObjectEntity();
+		} else {
+			return;
+		}
+	} else {
+		// menu:entity
+		$entity = $params['entity'];
+	}
+	/* @var ElggObject $entity */
+
+	if ((!$entity instanceof ElggObject) || elgg_in_context('widget')) {
+		return;
 	}
 
 	$subscription_subtypes = comment_tracker_get_entity_subtypes();
-
-	if (in_array($entity->getSubtype(), $subscription_subtypes)) {
-
-		if (comment_tracker_is_subscribed($user, $entity)) {
-			$text = elgg_echo('comment:unsubscribe');
-		} else {
-			$text = elgg_echo('comment:subscribe');
-		}
-		$text = "<span data-guid=\"{$entity->guid}\">$text</span>";
-
-		$item = new ElggMenuItem('comment_tracker', $text, '#');
-		$item->setTooltip(elgg_echo('comment:subscribe:tooltip'));
-		$item->setLinkClass("comment-tracker-toggle");
-		$item->setPriority(150);
-
-		$return[] = $item;
+	if (!in_array($entity->getSubtype(), $subscription_subtypes)) {
+		return;
 	}
+
+	if ($user->guid == $entity->owner_guid) {
+		if (elgg_get_plugin_setting('notify_owner', 'comment_tracker') != 'yes') {
+			return;
+		}
+	}
+
+	if (comment_tracker_is_subscribed($user, $entity)) {
+		$text = elgg_echo('comment:unsubscribe');
+	} else {
+		$text = elgg_echo('comment:subscribe');
+	}
+	$text = "<span data-guid=\"{$entity->guid}\">$text</span>";
+
+	$item = new ElggMenuItem('comment_tracker', $text, '#');
+	$item->setTooltip(elgg_echo('comment:subscribe:tooltip'));
+	$item->setLinkClass("comment-tracker-toggle");
+	$item->setPriority(150);
+
+	$return[] = $item;
 
 	return $return;
 }
