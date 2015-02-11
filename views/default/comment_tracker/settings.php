@@ -13,8 +13,7 @@ $view_all_link = elgg_view('output/url', array(
 		'href' => 'comment_tracker/subscribed/' . $user->username,
 		'is_trusted' => true
 ));
-$body = elgg_echo('comment:notification:settings:description');
-$body .= "<br>" . $view_all_link;
+$body = $view_all_link . ' ' . elgg_echo('comment:notification:settings:description');
 
 $body .= '<br><br>';
 
