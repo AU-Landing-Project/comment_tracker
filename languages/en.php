@@ -20,7 +20,7 @@ return array(
 	'comment:unsubscribe' => 'Unsubscribe',
 	'comment:subscribe:long' => 'Subscribe to comment notifications',
 	'comment:unsubscribe:long' => 'Unsubscribe from comment notifications',
-	'comment_tracker:setting:autosubscribe' => "Auto-subscribe to content you comment on?",
+	'comment_tracker:setting:autosubscribe' => "Auto-subscribe to content you like or comment on?",
 	'show:subscribers' => 'Show Subscribers',
 	'comment:subscribe:success' => 'You have successfully subscribed to this post or topic.',
 	'comment:subscribe:failed' => "Sorry! You couldn't subscribe this post or topic.",
