@@ -1,60 +1,69 @@
 <?php
 
 /**
- * Add subscribe/unsuncribe link to entity menu
+ * Register entity/river menu item
  *
- * @param string         $hook   'register'
- * @param string         $type   'menu:enity'
- * @param ElggMenuItem[] $return The current menu items
- * @param array          $params Array of parameters
- * @return ElggMenuItem[]
+ * @param  string         $hook   'register'
+ * @param  string         $type   'menu:entity' or 'menu:river'
+ * @param  ElggMenuItem[] $return Array of ElggMenuItem objects
+ * @param  array          $params Menu view parameters
+ *
+ * @return ElggMenuItem[] Array of ElggMenuItem objects
  */
-function comment_tracker_entity_menu($hook, $type, $return, $params) {
-	// Only logged in users can subscribe
-	if (!elgg_is_logged_in()) {
-		return $return;
-	}
-
-	// Entity menu is not displayed in widgets
-	if (elgg_in_context('widgets')) {
-		return $return;
-	}
-
-	if (!$params['entity'] instanceof ElggObject) {
-		return $return;
-	}
-
-	$entity = $params['entity'];
-
+function comment_tracker_register_menus($hook, $type, $return, $params) {
 	$user = elgg_get_logged_in_user_entity();
+	if (!$user) {
+		return;
+	}
 
-	// Use comment tracker to notify also the owner if explicitly told so
-	if ($user->guid == $entity->owner_guid) {
-		$notify_user = elgg_get_plugin_setting('notify_owner', 'comment_tracker');
+	if ($type === 'menu:river') {
+		$river_item = $params['item'];
+		/** @var $river_item ElggRiverItem */
 
-		if ($notify_user != 'yes') {
-			return $return;
+		if ($river_item->type !== 'object') {
+			return;
 		}
+		if ($river_item->action_type === 'comment') {
+			$entity = $river_item->getTargetEntity();
+		} elseif ($river_item->action_type === 'create') {
+			$entity = $river_item->getObjectEntity();
+		} else {
+			return;
+		}
+	} else {
+		// menu:entity
+		$entity = $params['entity'];
+	}
+	/* @var ElggObject $entity */
+
+	if ((!$entity instanceof ElggObject) || elgg_in_context('widget')) {
+		return;
 	}
 
 	$subscription_subtypes = comment_tracker_get_entity_subtypes();
-
-	if (in_array($entity->getSubtype(), $subscription_subtypes)) {
-
-		if (comment_tracker_is_subscribed($user, $entity)) {
-			$text = elgg_echo('comment:unsubscribe');
-		} else {
-			$text = elgg_echo('comment:subscribe');
-		}
-		$text = "<span data-guid=\"{$entity->guid}\">$text</span>";
-
-		$item = new ElggMenuItem('comment_tracker', $text, '#');
-		$item->setTooltip(elgg_echo('comment:subscribe:tooltip'));
-		$item->setLinkClass("comment-tracker-toggle");
-		$item->setPriority(150);
-
-		$return[] = $item;
+	if (!in_array($entity->getSubtype(), $subscription_subtypes)) {
+		return;
 	}
+
+	if ($user->guid == $entity->owner_guid) {
+		if (elgg_get_plugin_setting('notify_owner', 'comment_tracker') != 'yes') {
+			return;
+		}
+	}
+
+	if (comment_tracker_is_subscribed($user, $entity)) {
+		$text = elgg_echo('comment:unsubscribe');
+	} else {
+		$text = elgg_echo('comment:subscribe');
+	}
+	$text = "<span data-guid=\"{$entity->guid}\">$text</span>";
+
+	$item = new ElggMenuItem('comment_tracker', $text, '#');
+	$item->setTooltip(elgg_echo('comment:subscribe:tooltip'));
+	$item->setLinkClass("comment-tracker-toggle");
+	$item->setPriority(150);
+
+	$return[] = $item;
 
 	return $return;
 }
@@ -105,11 +114,15 @@ function comment_tracker_savesettings($hook, $type, $return, $params) {
  * @return object
  */
 function comment_tracker_prepare_notification($hook, $type, $notification, $params) {
-	$object = $params['event']->getObject();
+	$event = $params['event'];
+	/* @var Elgg_Notifications_Event $event */
+
+	$object = $event->getObject();
+	/* @var ElggObject $object */
 	$entity = $object->getContainerEntity();
 	$container = $entity->getContainerEntity();
 
-	$actor = $params['event']->getActor();
+	$actor = $event->getActor();
 	$recipient = $params['recipient'];
 	$language = $params['language'];
 	$method = $params['method'];
@@ -174,6 +187,7 @@ function comment_tracker_prepare_notification($hook, $type, $notification, $para
  */
 function comment_tracker_get_subscriptions($hook, $type, $subscriptions, $params) {
 	$event = $params['event'];
+	/* @var Elgg_Notifications_Event $event */
 
 	// We want to send notification only when a comment is created, not when it's updated
 	if ($event->getAction() !== 'create') {
@@ -188,36 +202,35 @@ function comment_tracker_get_subscriptions($hook, $type, $subscriptions, $params
 	// GUID of the entity that was commented
 	$container_guid = $event->getObject()->getContainerGUID();
 
-	// Get users that have subscribed to this entity
-	// TODO Use ElggBatch?
-	$users = elgg_get_entities_from_relationship(array(
+	// Get user GUIDs that have subscribed to this entity
+	$user_guids = elgg_get_entities_from_relationship(array(
 		'type' => 'user',
 		'relationship_guid' => $container_guid,
 		'relationship' => COMMENT_TRACKER_RELATIONSHIP,
 		'inverse_relationship' => true,
 		'limit' => false,
+		'callback' => '_comment_tracker_extract_guid',
 	));
+	/* @var int[] $user_guids */
 
-	if (!$users) {
+	if (!$user_guids) {
 		return $subscriptions;
 	}
 
 	// Get a comma separated list of the subscribed users
-	$user_guids = array();
-	foreach ($users as $user) {
-		$user_guids[$user->guid] = $user->guid;
-	}
-	$user_guids = implode(', ', $user_guids);
+	$user_guids_set = implode(',', $user_guids);
 
 	$dbprefix = elgg_get_config('dbprefix');
 	$site_guid = elgg_get_site_entity()->guid;
 
 	// Get relationships that are used to explicitly block specific notification methods
-	$blocked_relationships = get_data(
-		"SELECT * FROM {$dbprefix}entity_relationships " .
-		"WHERE relationship LIKE 'block_comment_notify%' " .
-		"AND guid_one IN ($user_guids) " .
-		"AND guid_two = $site_guid");
+	$blocked_relationships = get_data("
+		SELECT *
+		FROM {$dbprefix}entity_relationships
+		WHERE relationship LIKE 'block_comment_notify%'
+		AND guid_one IN ($user_guids_set)
+		AND guid_two = $site_guid
+	");
 
 	// Get the methods from the relationship names
 	$blocked_methods = array();
@@ -228,19 +241,29 @@ function comment_tracker_get_subscriptions($hook, $type, $subscriptions, $params
 
 	$handlers = _elgg_services()->notifications->getMethods();
 
-	foreach ($users as $user) {
+	foreach ($user_guids as $user_guid) {
 		// All available notification methods on the site
 		$methods = $handlers;
 
 		// Remove the notification methods that user has explicitly blocked
-		if (isset($blocked_methods[$user->guid])) {
-			$methods = array_diff($methods, $blocked_methods[$user->guid]);
+		if (isset($blocked_methods[$user_guid])) {
+			$methods = array_diff($methods, $blocked_methods[$user_guid]);
 		}
 
 		if ($methods) {
-			$subscriptions[$user->guid] = $methods;
+			$subscriptions[$user_guid] = $methods;
 		}
 	}
 
 	return $subscriptions;
+}
+
+/**
+ * Extract the GUID from a DB row (used as callback)
+ *
+ * @param stdClass $row DB row
+ * @return int
+ */
+function _comment_tracker_extract_guid($row) {
+	return (int)$row->guid;
 }

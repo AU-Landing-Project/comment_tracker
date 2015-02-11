@@ -29,7 +29,7 @@ function comment_tracker_init() {
 	$notify_owner = elgg_get_plugin_setting('notify_owner', 'comment_tracker');
 
 	if ($notify_owner == 'yes') {
-		elgg_register_action("comments/add", elgg_get_plugins_path() . "comment_tracker/actions/comment.php");
+		elgg_register_action("comment/save", elgg_get_plugins_path() . "comment_tracker/actions/comment/save.php");
 		elgg_unregister_event_handler('create', 'annotation', 'discussion_reply_notifications');
 	}
 
@@ -37,7 +37,8 @@ function comment_tracker_init() {
 	// save our settings
 	elgg_register_plugin_hook_handler('action', 'notificationsettings/save', 'comment_tracker_savesettings');
 	// add our subscription links
-	elgg_register_plugin_hook_handler('register', 'menu:entity', 'comment_tracker_entity_menu');
+	elgg_register_plugin_hook_handler('register', 'menu:entity', 'comment_tracker_register_menus');
+	elgg_register_plugin_hook_handler('register', 'menu:river', 'comment_tracker_register_menus');
 	// prepare the notification message
 	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:comment', 'comment_tracker_prepare_notification');
 	// get subscriptions for a commented entity
@@ -46,8 +47,9 @@ function comment_tracker_init() {
 	// Set core notifications system to track the creation of new comments
 	elgg_register_notification_event('object', 'comment', array('create'));
 
-	// register events
-	elgg_register_event_handler('create', 'object', 'comment_tracker_subscribe_owner_automatically');
+	// handle auto-subscriptions
+	elgg_register_event_handler('create', 'object', 'comment_tracker_auto_subscribe');
+	elgg_register_event_handler('create', 'annotation', 'comment_tracker_auto_subscribe');
 
 	// set up our pages
 	elgg_register_page_handler('comment_tracker', 'comment_tracker_page_handler');
@@ -71,8 +73,10 @@ function comment_tracker_page_handler($page) {
 
 	elgg_set_context('settings');
 
+	$content = "<p>" . elgg_echo('comment:notification:settings:description') . "</p>";
+
 	// display subscribed items
-	$content = elgg_list_entities_from_relationship(array(
+	$content .= elgg_list_entities_from_relationship(array(
 		'type' => 'object',
 		'subtypes' => comment_tracker_get_entity_subtypes(),
 		'relationship_guid' => $user->guid,

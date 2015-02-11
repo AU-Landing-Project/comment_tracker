@@ -6,12 +6,12 @@
 return array(
 	'comments' => "Comments",
 	'comment:notification:settings' => 'Comment notifications',
-	'comment:notification:settings:description' => 'Notify when comments are posted to items you have subscribed to.',
+	'comment:notification:settings:description' => 'You will be notified of new comments on this content.',
 	'comment:notification:settings:how' => 'Select your method of notification',
-	'comment:notification:settings:linktext' => 'View all items to which you are subscribed',
+	'comment:notification:settings:linktext' => 'View content you\'re subscribed to.',
 	'comment:subscriptions' => 'Subscriptions',
 	'comment:subscriptions:none' => 'No current subscriptions',
-	'comment:subscribe:tooltip' => 'Subscribe to receive notifications when comments are made on this content',
+	'comment:subscribe:tooltip' => 'Subscribers are notified when comments are made on this content',
 	'allow:comment:notification' => 'Do you want to enable notification? ',
 	'email:content:type' => 'Do you want to support HTML Email? ',
 	'text:email' => 'No',
@@ -20,7 +20,7 @@ return array(
 	'comment:unsubscribe' => 'Unsubscribe',
 	'comment:subscribe:long' => 'Subscribe to comment notifications',
 	'comment:unsubscribe:long' => 'Unsubscribe from comment notifications',
-	'comment_tracker:setting:autosubscribe' => "Auto-subscribe to content you comment on?",
+	'comment_tracker:setting:autosubscribe' => "Auto-subscribe to content you like or comment on?",
 	'show:subscribers' => 'Show Subscribers',
 	'comment:subscribe:success' => 'You have successfully subscribed to this post or topic.',
 	'comment:subscribe:failed' => "Sorry! You couldn't subscribe this post or topic.",
@@ -48,7 +48,7 @@ You can answer to the post here:
 
 
 --
-You reveived this email because you have subscribed to get notifications about new comments. You can change your notification settings here:
+You received this email because you have subscribed to get notifications about new comments. You can change your notification settings here:
 %s
 ",
 );
