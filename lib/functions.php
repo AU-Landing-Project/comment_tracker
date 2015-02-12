@@ -43,7 +43,7 @@ function comment_tracker_is_unsubscribed($user, $entity) {
 		return false;
 	}
 
-	$result = check_entity_relationship($user->guid, COMMENT_TRACKER_UNSUBSCRIBE_RELATIONSHIP, $entity->guid);
+	$result = (bool)check_entity_relationship($user->guid, COMMENT_TRACKER_UNSUBSCRIBE_RELATIONSHIP, $entity->guid);
 
 	$params = array(
 		'user' => $user,

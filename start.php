@@ -71,8 +71,10 @@ function comment_tracker_page_handler($page) {
 
 	elgg_set_context('settings');
 
+	$content = "<p>" . elgg_echo('comment:notification:settings:description') . "</p>";
+
 	// display subscribed items
-	$content = elgg_list_entities_from_relationship(array(
+	$content .= elgg_list_entities_from_relationship(array(
 		'type' => 'object',
 		'subtypes' => comment_tracker_get_entity_subtypes(),
 		'relationship_guid' => $user->guid,
