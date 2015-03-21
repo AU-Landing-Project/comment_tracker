@@ -12,6 +12,14 @@ require_once 'lib/functions.php';
  */
 function comment_tracker_init() {
 
+	$settings = elgg_get_plugin_from_id('comment_tracker')->getAllSettings();
+	if (empty($settings['show_entity_button'])) {
+		$settings['show_entity_button'] = 'yes';
+	}
+	if (empty($settings['show_river_button'])) {
+		$settings['show_river_button'] = 'no';
+	}
+
 	if (elgg_is_logged_in()) {
 		elgg_extend_view('page/elements/comments', "comment_tracker/manage_subscription", 400);
 		elgg_extend_view('discussion/replies', "comment_tracker/manage_subscription", 400);
@@ -36,8 +44,15 @@ function comment_tracker_init() {
 	// plugin hooks
 	// save our settings
 	elgg_register_plugin_hook_handler('action', 'notificationsettings/save', 'comment_tracker_savesettings');
+
 	// add our subscription links
-	elgg_register_plugin_hook_handler('register', 'menu:entity', 'comment_tracker_entity_menu');
+	if ($settings['show_entity_button'] === 'yes') {
+		elgg_register_plugin_hook_handler('register', 'menu:entity', 'comment_tracker_register_menus');
+	}
+	if ($settings['show_river_button'] === 'yes') {
+		elgg_register_plugin_hook_handler('register', 'menu:river', 'comment_tracker_register_menus');
+	}
+
 	// prepare the notification message
 	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:comment', 'comment_tracker_prepare_notification');
 	// get subscriptions for a commented entity
