@@ -20,7 +20,7 @@ return array(
 	'comment:unsubscribe' => 'Unsubscribe',
 	'comment:subscribe:long' => 'Subscribe to comment notifications',
 	'comment:unsubscribe:long' => 'Unsubscribe from comment notifications',
-	'comment_tracker:setting:autosubscribe' => "Auto-subscribe to content you comment on?",
+	'comment_tracker:setting:autosubscribe' => "Auto-subscribe to content you like or comment on?",
 	'show:subscribers' => 'Show Subscribers',
 	'comment:subscribe:success' => 'You have successfully subscribed to this post or topic.',
 	'comment:subscribe:failed' => "Sorry! You couldn't subscribe this post or topic.",
@@ -33,7 +33,6 @@ return array(
 	'comment_tracker:setting:show_entity_button' => "Show subscribe/unsubscribe button in entity menus?",
 	'comment_tracker:setting:show_river_button' => "Show subscribe/unsubscribe button in river item menus?",
 	'comment_tracker:item' => "item",
-	'comment_tracker:setting:notify_owner' => "Let comment tracker handle owner notifications?",
 
 	'comment_tracker:notify:subject' => '%s commented on the %s "%s"',
 	'comment_tracker:notify:subject:group' => '%s commented on the %s "%s" in the group %s',
