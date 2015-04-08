@@ -64,6 +64,14 @@ function comment_tracker_init() {
 	// register events
 	elgg_register_event_handler('create', 'object', 'comment_tracker_subscribe_owner_automatically');
 
+//	// Notification when likes added
+//	$subtypes = get_registered_entity_types('object');
+//	foreach ($subtypes as $subtype) {
+//		elgg_register_notification_event('object', $subtype, array('commented_on'));
+//	}
+//	// Trigger the comment_on event on the containing objects when likes are created
+//	elgg_register_event_handler('create', 'annotation', 'comment_tracker_like_created');
+
 	// set up our pages
 	elgg_register_page_handler('comment_tracker', 'comment_tracker_page_handler');
 

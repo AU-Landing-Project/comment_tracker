@@ -30,3 +30,28 @@ function comment_tracker_subscribe_owner_automatically($event, $type, $object) {
 
 	comment_tracker_subscribe($owner->guid, $object->guid);
 }
+
+///**
+// * Listen for new likes and fire a custom event to notify the top-level content that
+// * a notification needs to be sent (based on comment tracker subscriptions).
+// *
+// * Without this, users subscribed to items via this plugin will not get notifications
+// * on likes!
+// *
+// * @param string         $event      "create"
+// * @param string         $type       "annotation"
+// * @param ElggAnnotation $annotation An Elgg annotation
+// */
+//function comment_tracker_like_created($event, $type, ElggAnnotation $annotation) {
+//	if ($annotation->name !== 'likes') {
+//		return;
+//	}
+//	$object = $annotation->getEntity();
+//	while ($object instanceof ElggComment) {
+//		$object = $object->getContainerEntity();
+//	}
+//	if (!($object instanceof ElggObject)) {
+//		return;
+//	}
+//	elgg_trigger_event('commented_on', 'object', $object);
+//}
