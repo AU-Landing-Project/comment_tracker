@@ -3,7 +3,6 @@
  * Notification settings for comment tracker view
  */
 
-global $CONFIG;
 
 $notification_handlers = _elgg_services()->notifications->getMethodsAsDeprecatedGlobal();
 
@@ -20,7 +19,7 @@ $body .= '<br><br>';
 $body .= elgg_echo('comment_tracker:setting:autosubscribe') . '&nbsp;';
 
 $value = elgg_get_plugin_user_setting('comment_tracker_autosubscribe', $user->guid, 'comment_tracker');
-$body .= elgg_view('input/dropdown', array(
+$body .= elgg_view('input/select', array(
 	'name' => 'comment_tracker_autosubscribe',
 	'value' => $value ? $value : 'yes',
 	'options_values' => array(
@@ -55,7 +54,8 @@ echo elgg_view_module('info', elgg_echo('comment:notification:settings'), $body)
 			$i = 0;
 			foreach($notification_handlers as $method => $foo)
 			{
-				if (!check_entity_relationship($user->guid, 'block_comment_notify' . $method, $CONFIG->site_guid))
+				$site_guid = elgg_get_site_entity()->guid;
+				if (!check_entity_relationship($user->guid, 'block_comment_notify' . $method, $site_guid))
 				{
 					$checked[$method] = 'checked="checked"';
 				}

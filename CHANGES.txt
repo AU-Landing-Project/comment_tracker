@@ -2,6 +2,10 @@
 
 x.x:
 
+2.0.0 (10/22/2015):
+ - Upgrade for Elgg 1.9+
+ - restore auto subscription option that somehow got lost...
+
 1.6 ():
  - Removes old useless plugin settings
  - adds support for comment tracker to handle owner notifications

@@ -30,3 +30,34 @@ function comment_tracker_subscribe_owner_automatically($event, $type, $object) {
 
 	comment_tracker_subscribe($owner->guid, $object->guid);
 }
+
+
+/**
+ * auto subscribe user on content they commented on
+ * 
+ * @param type $event
+ * @param type $type
+ * @param type $comment
+ */
+function comment_tracker_autosubscribe($event, $type, $comment) {
+	if (!$comment instanceof ElggComment) {
+		return true;
+	}
+	
+	$user = $comment->getOwnerEntity();
+	$entity = $comment->getContainerEntity();
+	$autosubscribe = elgg_get_plugin_user_setting('comment_tracker_autosubscribe', $user->guid, 'comment_tracker');
+	
+	if ($autosubscribe == 'no') {
+		//user has disabled autosubscribe
+		return true;
+	}
+	
+	if (comment_tracker_is_unsubscribed($user, $entity)) {
+		// user has specifically unsubscribed
+		return true;
+	}
+	
+	// all conditions have been met, subscribe the user to the comment container
+	comment_tracker_subscribe($user->guid, $entity->guid);
+}

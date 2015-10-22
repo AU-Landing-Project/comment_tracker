@@ -11,6 +11,7 @@ return array(
 	'comment:notification:settings:linktext' => 'View content you\'re subscribed to.',
 	'comment:subscriptions' => 'Subscriptions',
 	'comment:subscriptions:none' => 'No current subscriptions',
+	'comment_tracker:setting:notify_owner' => "Let comment tracker handle owner notifications of comments?",
 	'comment:subscribe:tooltip' => 'Subscribers are notified when comments are made on this content',
 	'allow:comment:notification' => 'Do you want to enable notification? ',
 	'email:content:type' => 'Do you want to support HTML Email? ',
@@ -33,7 +34,6 @@ return array(
 	'comment_tracker:setting:show_entity_button' => "Show subscribe/unsubscribe button in entity menus?",
 	'comment_tracker:setting:show_river_button' => "Show subscribe/unsubscribe button in river item menus?",
 	'comment_tracker:item' => "item",
-	'comment_tracker:setting:notify_owner' => "Let comment tracker handle owner notifications?",
 
 	'comment_tracker:notify:subject' => '%s commented on the %s "%s"',
 	'comment_tracker:notify:subject:group' => '%s commented on the %s "%s" in the group %s',
@@ -45,7 +45,7 @@ There's a new comment on \"%s\".
 %s wrote:
 \"%s\"
 
-You can answer to the post here:
+You can reply to the post here:
 %s
 
 

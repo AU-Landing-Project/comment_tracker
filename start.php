@@ -34,13 +34,6 @@ function comment_tracker_init() {
 	// Register actions
 	elgg_register_action("comment_tracker/subscribe", elgg_get_plugins_path() . "comment_tracker/actions/subscribe.php");
 
-	$notify_owner = elgg_get_plugin_setting('notify_owner', 'comment_tracker');
-
-	if ($notify_owner == 'yes') {
-		elgg_register_action("comments/add", elgg_get_plugins_path() . "comment_tracker/actions/comment.php");
-		elgg_unregister_event_handler('create', 'annotation', 'discussion_reply_notifications');
-	}
-
 	// plugin hooks
 	// save our settings
 	elgg_register_plugin_hook_handler('action', 'notificationsettings/save', 'comment_tracker_savesettings');
@@ -51,6 +44,11 @@ function comment_tracker_init() {
 	}
 	if ($settings['show_river_button'] === 'yes') {
 		elgg_register_plugin_hook_handler('register', 'menu:river', 'comment_tracker_register_menus');
+	}
+	
+	if ($settings['notify_owner'] == 'yes') {
+		// overwrite comment/save action to remove hard-coded owner notification
+		elgg_register_action("comment/save", elgg_get_plugins_path() . "comment_tracker/actions/comment/save.php");
 	}
 
 	// prepare the notification message
@@ -63,6 +61,7 @@ function comment_tracker_init() {
 
 	// register events
 	elgg_register_event_handler('create', 'object', 'comment_tracker_subscribe_owner_automatically');
+	elgg_register_event_handler('create', 'object', 'comment_tracker_autosubscribe');
 
 	// set up our pages
 	elgg_register_page_handler('comment_tracker', 'comment_tracker_page_handler');
