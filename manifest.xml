@@ -4,7 +4,7 @@
     <author>Matt Beckett</author>
     <id>comment_tracker</id>
     <version>2.0.0</version>
-    <description>Manage notifications for comment threads</description>
+    <description>Manage notifications/subscriptions for comment threads</description>
     <website>http://mattbeckett.me/</website>
     <copyright>(C) Matt Beckett 2015</copyright>
     <license>GNU Public License version 2</license>
