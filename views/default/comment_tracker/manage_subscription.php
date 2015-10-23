@@ -4,6 +4,14 @@
  */
 $entity = $vars['entity'];
 
+if (!$entity && $vars['topic']) {
+	$entity = $vars['topic'];
+}
+
+if (!elgg_instanceof($entity)) {
+	return;
+}
+
 if (elgg_instanceof($entity, 'object', 'groupforumtopic') && $entity->status == 'closed') {
   return;
 }
