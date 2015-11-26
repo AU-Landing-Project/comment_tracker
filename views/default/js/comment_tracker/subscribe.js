@@ -33,7 +33,7 @@ define(function(require) {
 				}
 
 				if (text == elgg.echo('comment:subscribe')) {
-					
+
 					$(this).children(':first').text(elgg.echo('comment:unsubscribe'));
 					subscribe = 1;
 				}
@@ -56,7 +56,7 @@ define(function(require) {
 		event.preventDefault();
 	};
 
-	$('.comment-tracker-toggle').live('click', toggle);
+	$(document).on('click', '.comment-tracker-toggle', toggle);
 
 	return {
 		toggle: toggle
