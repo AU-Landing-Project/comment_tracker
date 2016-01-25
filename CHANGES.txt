@@ -2,6 +2,9 @@
 
 x.x:
 
+2.0.2 (01/24/2016):
+ - make subscribe button respect the owner notification setting
+
 2.0.1 (10/22/2015):
  - fix for discussions wsod
 
