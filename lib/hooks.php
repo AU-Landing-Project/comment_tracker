@@ -41,6 +41,7 @@ function comment_tracker_register_menus($hook, $type, $return, $params) {
 	}
 
 	$subscription_subtypes = comment_tracker_get_entity_subtypes();
+
 	if (!in_array($entity->getSubtype(), $subscription_subtypes)) {
 		return;
 	}

@@ -3,7 +3,7 @@
     <name>Comment Tracker</name>
     <author>Matt Beckett</author>
     <id>comment_tracker</id>
-    <version>2.0.2</version>
+    <version>3.0.0</version>
     <description>Manage notifications/subscriptions for comment threads</description>
     <website>http://mattbeckett.me/</website>
     <copyright>(C) Matt Beckett 2015</copyright>

@@ -130,6 +130,7 @@ function comment_tracker_get_entity_subtypes() {
 			'blog',
 			'bookmarks',
 			'event_calendar',
+			'discussion',
 			'file',
 			'groupforumtopic',
 			'image', // tidypics

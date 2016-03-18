@@ -3,9 +3,9 @@
 define('COMMENT_TRACKER_RELATIONSHIP', 'comment_subscribe');
 define('COMMENT_TRACKER_UNSUBSCRIBE_RELATIONSHIP', 'comment_tracker_unsubscribed');
 
-require_once 'lib/hooks.php';
-require_once 'lib/events.php';
-require_once 'lib/functions.php';
+require_once __DIR__ . '/lib/hooks.php';
+require_once __DIR__ . '/lib/events.php';
+require_once __DIR__ . '/lib/functions.php';
 
 /**
  * Initialise the plugin
@@ -26,7 +26,7 @@ function comment_tracker_init() {
 	}
 
 	// Extend views
-	elgg_extend_view('css/elgg', 'comment_tracker/css');
+	elgg_extend_view('elgg.css', 'css/comment_tracker.css');
 	elgg_extend_view('notifications/subscriptions/forminternals', 'comment_tracker/settings');
 
 	elgg_require_js('comment_tracker/subscribe');
