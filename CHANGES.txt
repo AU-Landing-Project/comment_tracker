@@ -2,6 +2,10 @@
 
 x.x:
 
+3.0.0 (12/11/2016):
+ - Add discussions as available entity
+ - Add french translation file
+
 2.0.2 (01/24/2016):
  - make subscribe button respect the owner notification setting
 
