@@ -1,48 +1,46 @@
 <?php
+
 /**
- * English translations for the comment_tracker plugin
+ * Spanish translations for the comment_tracker plugin
  */
-
 return array(
-	'comments' => "Comments",
-	'comment:notification:settings' => 'Comment notifications',
-	'comment:notification:settings:description' => 'You will be notified of new comments on this content.',
-	'comment:notification:settings:how' => 'Select your method of notification',
-	'comment:notification:settings:linktext' => 'View content you\'re subscribed to.',
-	'comment:subscriptions' => 'Subscriptions',
-	'comment:subscriptions:none' => 'No current subscriptions',
-	'comment_tracker:setting:notify_owner' => "Let comment tracker handle owner notifications of comments?",
-	'comment:subscribe:tooltip' => 'Subscribers are notified when comments are made on this content',
-	'allow:comment:notification' => 'Do you want to enable notification? ',
-	'email:content:type' => 'Do you want to support HTML Email? ',
-	'text:email' => 'No',
-	'html:email' => 'Yes',
-	'comment:subscribe' => 'Subscribe',
-	'comment:unsubscribe' => 'Unsubscribe',
-	'comment:subscribe:long' => 'Subscribe to comment notifications',
-	'comment:unsubscribe:long' => 'Unsubscribe from comment notifications',
-	'comment_tracker:setting:autosubscribe' => "Auto-subscribe to content you comment on?",
-	'show:subscribers' => 'Show Subscribers',
-	'comment:subscribe:success' => 'You have successfully subscribed to this post or topic.',
-	'comment:subscribe:failed' => "Sorry! You couldn't subscribe this post or topic.",
-	'comment:subscribe:entity:not:access' => "Sorry! we couldn't find the post or topic for some reason.",
-	'comment:unsubscribe:success' => 'You have successfully unsubscribed from this post or topic.',
-	'comment:unsubscribe:failed' => "Sorry! You couldn't unsubscribe from this post or topic.",
-	'comment:unsubscribe:not:valid:url' => 'Sorry! This is not a valid url to unsubscribe from this post or topic.',
-	'comment:unsubscribe:entity:not:access' => "Sorry! we couldn't find the post or topic.",
-	'comment_tracker:setting:show_button' => "Show subscribe/unsubscribe button above comments view? ",
-	'comment_tracker:setting:show_entity_button' => "Show subscribe/unsubscribe button in entity menus?",
-	'comment_tracker:setting:show_river_button' => "Show subscribe/unsubscribe button in river item menus?",
-	'comment_tracker:item' => "item",
+    'comments' => "Comentarios",
+    'comment:notification:settings' => 'Notificaciones de comentarios',
+    'comment:notification:settings:description' => 'Notificarme cuando haya comentarios en elementos en los que te hayas suscrito.',
+    'comment:notification:settings:how' => 'Selecciona tu método de notificación',
+    'comment:notification:settings:linktext' => 'Ver todos los elementos en los que estoy suscrito.',
+    'comment:subscriptions' => 'Suscripciones',
+    'comment:subscriptions:none' => 'No hay suscripciones actualmente',
+    'comment_tracker:setting:notify_owner' => "¿Permitir que el rastreador maneje las notificaciones de los propietarios de los comentarios?",
+    'comment:subscribe:tooltip' => 'Suscríbete para recibir notificaciones cuando haya comentarios',
+    'allow:comment:notification' => '¿Quieres habilitar las notificaciones? ',
+    'email:content:type' => '¿Deseas recibir correos en formato HTML? ',
+    'text:email' => 'No',
+    'html:email' => 'Si',
+    'comment:subscribe' => 'Subscribirme',
+    'comment:unsubscribe' => 'Cancelar suscripción',
+    'comment:subscribe:long' => 'Suscribirme a las notificaciones de comentarios',
+    'comment:unsubscribe:long' => 'Cancelar suscripción de las notificaciones de comentarios',
+    'comment_tracker:setting:autosubscribe' => "¿Auto-suscribirme al contenido en el que haya comentado?",
+    'show:subscribers' => 'Mostrar suscriptores',
+    'comment:subscribe:success' => 'Te has suscrito correctamente a este contenido o temática.',
+    'comment:subscribe:failed' => "Lo sentimos! No hemos podido suscribirte a este contenido o temática.",
+    'comment:subscribe:entity:not:access' => "Lo sentimos! No hemos encontrado el contenido o temática por alguna razón.",
+    'comment:unsubscribe:success' => 'Se ha cancelado correctamente la suscripción a este contenido o temática.',
+    'comment:unsubscribe:failed' => "Lo sentimos! No hemos podido cancelar la suscripción a este contenido o temática.",
+    'comment:unsubscribe:not:valid:url' => 'Lo sentimos! Esta no es una url correcta para cancelar la suscipción de este contenido o temática.',
+    'comment:unsubscribe:entity:not:access' => "Lo sentimos! No hemos encontrado el contenido o temática.",
+    'comment_tracker:setting:show_button' => "¿Mostrar el botón de suscripción/cancelación arriba del comentario?",
+    'comment_tracker:setting:show_entity_button' => "¿Mostrar el botón de suscripción/cancelación arriba en los menús de los componentes?",
+    'comment_tracker:setting:show_river_button' => "¿Mostrar el botón de suscripción/cancelación arriba en los menús de los elementos del River?",
+    'comment_tracker:item' => "elemento",
+    'comment_tracker:notify:subject' => '%s comentó en el %s "%s"',
+    'comment_tracker:notify:subject:group' => '%s comentó en el %s "%s" en el grupo %s',
+    'comment_tracker:notify:body' => "Hola %s
 
-	'comment_tracker:notify:subject' => '%s commented on the %s "%s"',
-	'comment_tracker:notify:subject:group' => '%s commented on the %s "%s" in the group %s',
+Hay un nuevo comentario en \"%s\".
 
-	'comment_tracker:notify:body' => "Hi %s
-
-There's a new comment on \"%s\".
-
-%s wrote:
+%s escribió:
 \"%s\"
 
 You can reply to the post here:
@@ -50,7 +48,7 @@ You can reply to the post here:
 
 
 --
-You received this email because you have subscribed to get notifications about new comments. You can change your notification settings here:
+Has recibido esta notificación porque te has suscrito para recibir notificaciones sobre nuevos comentarios. Para cambiar las preferencias de notificación de este tipo de mensajes, haz clic aquí:
 %s
 ",
 );
