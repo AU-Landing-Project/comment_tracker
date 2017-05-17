@@ -43,7 +43,7 @@ Hay un nuevo comentario en \"%s\".
 %s escribió:
 \"%s\"
 
-You can reply to the post here:
+Puedes responder a la entrada aquí:
 %s
 
 
