@@ -36,7 +36,7 @@ function comment_tracker_register_menus($hook, $type, $return, $params) {
 	}
 	/* @var ElggObject $entity */
 
-	if ((!$entity instanceof ElggObject) || elgg_in_context('widget')) {
+	if (!($entity instanceof ElggObject) || elgg_in_context('widgets')) {
 		return;
 	}
 
